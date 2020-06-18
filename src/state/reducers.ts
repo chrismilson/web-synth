@@ -1,50 +1,28 @@
-import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  SET_VISIBILITY_FILTER,
-  Action
-} from './types/actions'
-import {
-  TodoApp, VisibilityFilter
-} from './types/state'
+import { ActionType, Action } from './types/actions'
 import { combineReducers } from 'redux'
 
-function todos(state: TodoApp['todos'] = [], action: Action): TodoApp['todos'] {
+function audioContext(
+  state: AudioContext = new AudioContext(),
+  action: Action
+): AudioContext {
   switch (action.type) {
-    case ADD_TODO:
-      const { text, id } = action.payload
-      return [
-        ...state,
-        { text, id, completed: false }
-      ]
-    case TOGGLE_TODO:
-      return state.map(todo => {
-        if (todo.id === action.payload.id) {
-          return {
-            ...todo,
-            completed: !todo.completed
-          }
-        }
-        return todo
-      })
+    case ActionType.SET_AUDIO_CONTEXT:
+      return action.payload.context
     default:
       return state
   }
 }
 
-function visibilityFilter(
-  state: TodoApp['visibilityFilter'] = VisibilityFilter.SHOW_ALL,
-  action: Action  
-): VisibilityFilter {
+function masterGain(state = 0, action: Action): number {
   switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.payload.filter
+    case ActionType.SET_MASTER_GAIN:
+      return action.payload.gain
     default:
       return state
   }
 }
 
 export default combineReducers({
-  todos,
-  visibilityFilter
+  audioContext,
+  masterGain
 })

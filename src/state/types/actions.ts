@@ -1,36 +1,22 @@
-import { VisibilityFilter } from './state'
+export enum ActionType {
+  SET_AUDIO_CONTEXT = 'SET_AUDIO_CONTEXT',
+  SET_MASTER_GAIN = 'SET_MASTER_GAIN'
+}
 
-export const ADD_TODO = 'ADD_TODO'
-export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
-
-export interface AddTodoAction {
-  type: typeof ADD_TODO
+export interface SetAudioContextAction {
+  type: ActionType.SET_AUDIO_CONTEXT
   payload: {
-    /** A unique identifier for the given action. */
-    id: number
-    /** The text of the todo */
-    text: string
+    /** An audio context object */
+    context: AudioContext
   }
 }
 
-export interface ToggleTodoAction {
-  type: typeof TOGGLE_TODO,
+export interface SetMasterGainAction {
+  type: ActionType.SET_MASTER_GAIN
   payload: {
-    /** The id of the todo that is toggled */
-    id: number
+    /** The new gain level */
+    gain: number
   }
 }
 
-export interface SetVisibilityFilterAction {
-  type: typeof SET_VISIBILITY_FILTER,
-  payload: {
-    /** The type of the new filter to use */
-    filter: VisibilityFilter
-  }
-}
-
-export type Action =
-  AddTodoAction |
-  ToggleTodoAction |
-  SetVisibilityFilterAction
+export type Action = SetAudioContextAction | SetMasterGainAction

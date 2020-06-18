@@ -1,35 +1,19 @@
 import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  SET_VISIBILITY_FILTER,
-  AddTodoAction,
-  ToggleTodoAction,
-  SetVisibilityFilterAction
+  ActionType,
+  SetAudioContextAction,
+  SetMasterGainAction
 } from './types/actions'
-import { VisibilityFilter } from './types/state'
 
-let nextTodoId = 0
-
-export function addTodo(text: string): AddTodoAction {
-  const id = nextTodoId++
+export function setAudioContext(context: AudioContext): SetAudioContextAction {
   return {
-    type: ADD_TODO,
-    payload: { text, id }
+    type: ActionType.SET_AUDIO_CONTEXT,
+    payload: { context }
   }
 }
 
-export function toggleTodo(id: number): ToggleTodoAction {
+export function setMasterGain(gain: number): SetMasterGainAction {
   return {
-    type: TOGGLE_TODO,
-    payload: { id }
-  }
-}
-
-export function setVisibilityFilter(
-  filter: VisibilityFilter
-): SetVisibilityFilterAction {
-  return {
-    type: SET_VISIBILITY_FILTER,
-    payload: { filter }
+    type: ActionType.SET_MASTER_GAIN,
+    payload: { gain }
   }
 }
