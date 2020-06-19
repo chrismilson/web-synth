@@ -3,7 +3,6 @@ import './style.scss'
 import { ReactComponent as KnobSVG } from './face.svg'
 
 export interface KnobProps {
-  size?: number
   step?: string | number
   min?: number
   max?: number
@@ -23,7 +22,6 @@ export interface KnobProps {
 }
 
 const Knob: React.FC<KnobProps> = ({
-  size = 100,
   step = 1,
   min = 0,
   max = 1,
@@ -41,8 +39,6 @@ const Knob: React.FC<KnobProps> = ({
         style={{
           rotate: `${(endAngle - startAngle) * normalised + startAngle}deg`
         }}
-        width={size}
-        height={size}
       />
       <input
         className="input"
