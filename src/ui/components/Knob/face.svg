@@ -7,7 +7,7 @@
   </defs>
   <circle cx="0" cy="0" r="1.15" fill="#999"/>
   <g mask="url(#knob-top)">
-    <circle cx="0" cy="0" r="1" fill="#333" stroke="#000" stroke-width="0.2"/>
+    <circle cx="0" cy="0" r="1" fill="#333" stroke="#000" stroke-width="0.4"/>
     <line x1="0" y1="0" x2="0" y2="-1" stroke="#FFF" stroke-width="0.1" stroke-linecap="round"/>
   </g>
 </svg>
