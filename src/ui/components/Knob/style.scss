@@ -16,6 +16,7 @@
     width: 100%;
     rotate: -90deg;
     opacity: 0;
+    clip-path: circle(50%);
 
     &:active {
       cursor: grabbing;
