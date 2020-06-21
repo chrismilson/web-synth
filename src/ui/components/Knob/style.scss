@@ -1,38 +1,79 @@
 .Knob {
+  font-size: 10em;
+  width: 1em;
+  height: 1em;
   position: relative;
-  width: 100%;
-  height: 100%;
+  margin: 0.4em;
 
-  .visual {
-    pointer-events: none;
+  .selector {
+    position: absolute;
     width: 100%;
     height: 100%;
 
-    --top-color: var(--fg-color, #333);
-    --top-edge-color: var(--bg-color, #111);
-    --pointer-color: var(--text-color, white);
-    --bottom-color: var(--fg-color, #333);
-  }
+    .visual {
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+      --top-color: var(--fg-color, #333);
+      --top-edge-color: var(--bg-color, #111);
+      --pointer-color: var(--text-color, white);
+      --bottom-color: var(--fg-color, #333);
+    }
+    
+    .input {
+      cursor: grab;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      rotate: -90deg;
+      opacity: 0;
+      clip-path: circle(50%);
+      margin: 0;
 
-  .input {
-    cursor: grab;
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+  
+  .labels {
+    pointer-events: none;
+    font-size: 0.2em;
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
     width: 100%;
-    rotate: -90deg;
-    opacity: 0;
-    clip-path: circle(50%);
+    height: 100%;
 
-    &:active {
-      cursor: grabbing;
+    .label {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      .child {
+        position: absolute;
+        display: flex;
+        min-height: 1em;
+        translate: -50% -50%;
+
+        svg {
+          min-width: 1em;
+        }
+      }
+
+      .tickmark {
+        position: absolute;
+        height: 0.06em;
+        border-radius: 0.03em;
+        width: 8%;
+        background-color: var(--text-color);
+        translate: -50% -50%;
+      }
     }
-  }
-
-  .label {
-    pointer-events: none;
-    position: absolute;
-    display: none;
   }
 }

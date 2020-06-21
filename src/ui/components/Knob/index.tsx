@@ -28,23 +28,55 @@ const Knob: React.FC<KnobProps> = ({
   value,
   startAngle = -150,
   endAngle = 150,
-  onChange
+  onChange,
+  children
 }) => {
   const normalised = (value - min) / (max - min)
+  const n = React.Children.count(children) - 1
 
   return (
     <div className="Knob">
-      <KnobSVG
-        className="visual"
-        style={{
-          rotate: `${(endAngle - startAngle) * normalised + startAngle}deg`
-        }}
-      />
-      <input
-        className="input"
-        type="range"
-        {...{ value, min, max, step, onChange }}
-      />
+      <div className="selector">
+        <KnobSVG
+          className="visual"
+          style={{
+            rotate: `${(endAngle - startAngle) * normalised + startAngle}deg`
+          }}
+        />
+        <input
+          className="input"
+          type="range"
+          {...{ value, min, max, step, onChange }}
+        />
+      </div>
+      <div className="labels">
+        {React.Children.map(children, (child, i) => {
+          const angle = -90 + startAngle + ((endAngle - startAngle) * i) / n
+          const dy = Math.sin((angle * Math.PI) / 180)
+          const dx = Math.cos((angle * Math.PI) / 180)
+          return (
+            <div key={i} className="label">
+              <div
+                className="tickmark"
+                style={{
+                  rotate: `${angle - 180}deg`,
+                  top: `${50 + dy * 54}%`,
+                  left: `${50 + dx * 54}%`
+                }}
+              ></div>
+              <div
+                className="child"
+                style={{
+                  top: `${50 + dy * 75}%`,
+                  left: `${50 + dx * 80}%`
+                }}
+              >
+                {child}
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
