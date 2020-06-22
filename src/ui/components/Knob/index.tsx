@@ -20,6 +20,8 @@ export interface KnobProps {
   endAngle?: number
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   title?: string
+  className?: string
+  labels?: React.ReactNode[]
 }
 
 const Knob: React.FC<KnobProps> = ({
@@ -31,13 +33,13 @@ const Knob: React.FC<KnobProps> = ({
   endAngle = 150,
   onChange,
   title,
-  children
+  className,
+  labels = []
 }) => {
   const normalised = (value - min) / (max - min)
-  const n = React.Children.count(children) - 1
 
   return (
-    <div className="Knob">
+    <div className={className ? `${className} Knob` : 'Knob'}>
       <div className="selector">
         <KnobSVG
           className="visual"
@@ -52,8 +54,11 @@ const Knob: React.FC<KnobProps> = ({
         />
       </div>
       <div className="labels">
-        {React.Children.map(children, (child, i) => {
-          const angle = -90 + startAngle + ((endAngle - startAngle) * i) / n
+        {labels.map((label, i) => {
+          const angle =
+            -90 +
+            startAngle +
+            ((endAngle - startAngle) * i) / (labels.length - 1)
           const dy = Math.sin((angle * Math.PI) / 180)
           const dx = Math.cos((angle * Math.PI) / 180)
           return (
@@ -73,7 +78,7 @@ const Knob: React.FC<KnobProps> = ({
                   left: `${50 + dx * 80}%`
                 }}
               >
-                {child}
+                {label}
               </div>
             </div>
           )
