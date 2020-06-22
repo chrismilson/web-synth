@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { connect, MapDispatchToProps } from 'react-redux'
 import { ReactComponent as Square } from '../../../icons/wave-shapes/square.svg'
 import { ReactComponent as ShortPulse } from '../../../icons/wave-shapes/short-pulse.svg'
 import { ReactComponent as LongPulse } from '../../../icons/wave-shapes/long-pulse.svg'
 import './style.scss'
 import Knob from '../../../components/Knob'
+import { MapStateToProps } from 'react-redux'
+import { RootState } from '../../../../state/types/state'
+import { setVCO1PulseWidth } from '../../../../state/actions'
 
-const PulseWidth: React.FC = () => {
-  const [value, setValue] = useState(1)
+export interface PulseWidthProps {
+  value: number
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
 
+const PulseWidth: React.FC<PulseWidthProps> = ({ value, onChange }) => {
   return (
     <div className="PulseWidth">
       <Knob
         value={value}
-        min={0}
-        max={3}
-        step={0.1}
-        onChange={e => {
-          setValue(e.target.valueAsNumber)
-        }}
+        min={-1}
+        max={1}
+        step={0.01}
+        onChange={onChange}
         title="PW"
       >
         {[
@@ -39,4 +44,23 @@ const PulseWidth: React.FC = () => {
   )
 }
 
-export default PulseWidth
+const mapStateToProps: MapStateToProps<
+  {
+    value: number
+  },
+  {},
+  RootState
+> = state => ({ value: state.vco1.pulseWidth })
+
+const mapDispatchToProps: MapDispatchToProps<
+  {
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  },
+  {}
+> = dispatch => ({
+  onChange: event => {
+    dispatch(setVCO1PulseWidth(event.target.valueAsNumber))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PulseWidth)
