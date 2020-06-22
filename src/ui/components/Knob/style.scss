@@ -3,7 +3,7 @@
   width: 1em;
   height: 1em;
   position: relative;
-  margin: 0.4em;
+  margin: 0.6em;
 
   .selector {
     position: absolute;
@@ -75,5 +75,14 @@
         translate: -50% -50%;
       }
     }
+  }
+
+  .title {
+    font-size: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    translate: -50% 1em;
+    white-space: nowrap;
   }
 }

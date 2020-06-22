@@ -1,6 +1,6 @@
 import React from 'react'
 import './style.scss'
-import { ReactComponent as KnobSVG } from './face.svg'
+import { ReactComponent as KnobSVG } from '../../icons/knob.svg'
 
 export interface KnobProps {
   step?: string | number
@@ -19,6 +19,7 @@ export interface KnobProps {
    */
   endAngle?: number
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  title?: string
 }
 
 const Knob: React.FC<KnobProps> = ({
@@ -29,6 +30,7 @@ const Knob: React.FC<KnobProps> = ({
   startAngle = -150,
   endAngle = 150,
   onChange,
+  title,
   children
 }) => {
   const normalised = (value - min) / (max - min)
@@ -77,6 +79,7 @@ const Knob: React.FC<KnobProps> = ({
           )
         })}
       </div>
+      {title && <div className="title">{title}</div>}
     </div>
   )
 }
