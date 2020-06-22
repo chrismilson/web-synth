@@ -28,12 +28,12 @@ const mapStateToProps: MapStateToProps<
 
 const mapDispatchToProps: MapDispatchToProps<
   {
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    handleChange: (value: number) => void
   },
   {}
 > = dispatch => ({
-  onChange: event => {
-    dispatch(setVCO2Pitch(event.target.valueAsNumber))
+  handleChange: value => {
+    dispatch(setVCO2Pitch(value))
   }
 })
 

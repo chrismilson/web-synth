@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './style.scss'
 import { ReactComponent as KnobSVG } from '../../icons/knob.svg'
 
@@ -18,7 +18,7 @@ export interface KnobProps {
    * value is 1.
    */
   endAngle?: number
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChange?: (newValue: number) => void
   title?: string
   className?: string
   labels?: React.ReactNode[]
@@ -31,12 +31,14 @@ const Knob: React.FC<KnobProps> = ({
   value,
   startAngle = -150,
   endAngle = 150,
-  onChange,
+  handleChange,
   title,
   className,
   labels = []
 }) => {
   const normalised = (value - min) / (max - min)
+
+  const [initialPos, setInitialPos] = useState()
 
   return (
     <div className={className ? `${className} Knob` : 'Knob'}>
@@ -50,7 +52,13 @@ const Knob: React.FC<KnobProps> = ({
         <input
           className="input"
           type="range"
-          {...{ value, min, max, step, onChange }}
+          onChange={
+            handleChange &&
+            (event => {
+              handleChange(event.target.valueAsNumber)
+            })
+          }
+          {...{ value, min, max, step }}
         />
       </div>
       <div className="labels">

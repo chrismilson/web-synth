@@ -30,12 +30,12 @@ const mapStateToProps: MapStateToProps<
 
 const mapDispatchToProps: MapDispatchToProps<
   {
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    handleChange: (value: number) => void
   },
   {}
 > = dispatch => ({
-  onChange: event => {
-    dispatch(setVCO1Scale(event.target.valueAsNumber))
+  handleChange: (value: number) => {
+    dispatch(setVCO1Scale(value))
   }
 })
 

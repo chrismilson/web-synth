@@ -49,18 +49,18 @@ const mapStateToProps: MapStateToProps<
 
 const mapDispatchToProps: MapDispatchToProps<
   {
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    handleChange: (value: number) => void
   },
   {}
 > = dispatch => ({
-  onChange: event => {
+  handleChange: value => {
     const shapes = [
       VCO1WaveShape.TRIANGLE,
       VCO1WaveShape.SAWTOOTH,
       VCO1WaveShape.SQUARE,
       VCO1WaveShape.NOISE
     ]
-    dispatch(setVCO1WaveShape(shapes[event.target.valueAsNumber]))
+    dispatch(setVCO1WaveShape(shapes[value]))
   }
 })
 
