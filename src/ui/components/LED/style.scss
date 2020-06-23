@@ -1,0 +1,13 @@
+.LED {
+  background-color: var(--fg-color, #333);
+  clip-path: circle(50%);
+  display: inline-flex;
+
+  width: 1em;
+  height: 1em;
+  margin: 0 0.2em;
+
+  &.on {
+    background-color: red;
+  }
+}
