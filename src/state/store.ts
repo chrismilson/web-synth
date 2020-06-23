@@ -1,10 +1,6 @@
-import reducer from './reducers'
 import { createStore } from 'redux'
-import { setAudioContext, setMasterGain } from './actions'
+import reducer from './reducers'
 
 const store = createStore(reducer)
-
-store.dispatch(setAudioContext(new AudioContext()))
-store.dispatch(setMasterGain(0))
 
 export default store
