@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './style.scss'
 import { ReactComponent as KnobSVG } from '../../icons/knob.svg'
 
@@ -37,8 +37,6 @@ const Knob: React.FC<KnobProps> = ({
   labels = []
 }) => {
   const normalised = (value - min) / (max - min)
-
-  const [initialPos, setInitialPos] = useState()
 
   return (
     <div className={className ? `${className} Knob` : 'Knob'}>
