@@ -1,0 +1,16 @@
+.Volume {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+
+  .Knob {
+    margin-bottom: 2em;
+    .labels .label:first-child .child {
+      translate: 0 -50% !important;
+    }
+  }
+
+  .indicator {
+    align-self: flex-start;
+  }
+}
