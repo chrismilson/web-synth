@@ -22,7 +22,7 @@ const mapStateToProps: MapStateToProps<
   RootState
 > = state => ({
   value: state.vco1.pulseWidth,
-  min: 0.01,
+  min: 0.5,
   max: 0.99,
   step: 0.001,
   title: 'PW',
