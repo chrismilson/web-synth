@@ -11,7 +11,7 @@ const waveShape = (state = VCO1WaveShape.SAWTOOTH, action: Action) => {
   }
 }
 
-const pulseWidth = (state = 0, action: Action) => {
+const pulseWidth = (state = 0.5, action: Action) => {
   switch (action.type) {
     case ActionType.SET_VCO1_PULSE_WIDTH:
       return action.payload
