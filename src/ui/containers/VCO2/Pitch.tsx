@@ -18,9 +18,9 @@ const mapStateToProps: MapStateToProps<
   RootState
 > = state => ({
   value: state.vco2.pitch,
-  min: -5,
-  max: 5,
-  step: 0.01,
+  min: -1,
+  max: 1,
+  step: 0.001,
   title: 'PITCH',
   className: 'pitch',
   labels: [...Array(11)].map((_, i) => i - 5).map(v => (v > 0 ? '+' : '') + v)
