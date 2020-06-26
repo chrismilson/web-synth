@@ -1,0 +1,13 @@
+.VCOMixer {
+  width: 12em;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  
+  .vco1, .vco2 {
+    font-size: 0.8em;
+  }
+}
