@@ -1,6 +1,7 @@
 import React from 'react'
 import './style.scss'
 import { ReactComponent as KnobSVG } from '../../icons/knob.svg'
+import FriendlyRange from '../FreidnlyRange'
 
 export interface KnobProps {
   step?: string | number
@@ -47,17 +48,7 @@ const Knob: React.FC<KnobProps> = ({
             rotate: `${(endAngle - startAngle) * normalised + startAngle}deg`
           }}
         />
-        <input
-          className="input"
-          type="range"
-          onChange={
-            handleChange &&
-            (event => {
-              handleChange(event.target.valueAsNumber)
-            })
-          }
-          {...{ value, min, max, step }}
-        />
+        <FriendlyRange {...{ value, min, max, step, handleChange }} />
       </div>
       <div className="labels">
         {labels.map((label, i) => {
