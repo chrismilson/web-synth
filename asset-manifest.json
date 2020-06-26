@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.73689c7c.chunk.css",
+    "main.js": "/static/js/main.4c58bd4d.chunk.js",
+    "main.js.map": "/static/js/main.4c58bd4d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.73284e94.js",
+    "runtime-main.js.map": "/static/js/runtime-main.73284e94.js.map",
+    "static/js/2.2d27f28f.chunk.js": "/static/js/2.2d27f28f.chunk.js",
+    "static/js/2.2d27f28f.chunk.js.map": "/static/js/2.2d27f28f.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f852ec0473951aa1fff1696523bd6bf1.js": "/precache-manifest.f852ec0473951aa1fff1696523bd6bf1.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.73689c7c.chunk.css.map": "/static/css/main.73689c7c.chunk.css.map",
+    "static/js/2.2d27f28f.chunk.js.LICENSE.txt": "/static/js/2.2d27f28f.chunk.js.LICENSE.txt",
+    "static/media/arrows.a1879888.svg": "/static/media/arrows.a1879888.svg",
+    "static/media/knob.13f88f3c.svg": "/static/media/knob.13f88f3c.svg",
+    "static/media/long-pulse.0f56f284.svg": "/static/media/long-pulse.0f56f284.svg",
+    "static/media/noise.ec68c88d.svg": "/static/media/noise.ec68c88d.svg",
+    "static/media/saw.db023ad9.svg": "/static/media/saw.db023ad9.svg",
+    "static/media/short-pulse.71edb594.svg": "/static/media/short-pulse.71edb594.svg",
+    "static/media/square.6fb386d1.svg": "/static/media/square.6fb386d1.svg",
+    "static/media/triangle.b2ae22a0.svg": "/static/media/triangle.b2ae22a0.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73284e94.js",
+    "static/js/2.2d27f28f.chunk.js",
+    "static/css/main.73689c7c.chunk.css",
+    "static/js/main.4c58bd4d.chunk.js"
+  ]
+}
