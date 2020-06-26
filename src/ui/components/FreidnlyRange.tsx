@@ -9,6 +9,12 @@ export interface FriendlyRangeProps {
   handleChange?: (newValue: number) => void
 }
 
+enum DragStatus {
+  NONE,
+  TOUCH,
+  MOUSE
+}
+
 const FriendlyRange: React.FC<FriendlyRangeProps> = ({
   step,
   min,
@@ -28,13 +34,13 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
     return value
   }, [])
 
-  const [dragging, setDragging] = useState(false)
+  const [dragStatus, setDragStatus] = useState(DragStatus.NONE)
+  const [identifier, setIdentifier] = useState(0)
   const [dragInitials, setDragInitials] = useState([0, value])
 
   const startDrag = useCallback(
     (yPos: number) => {
       setDragInitials([yPos, value])
-      setDragging(true)
     },
     [value]
   )
@@ -48,40 +54,75 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
   )
 
   const endDrag = useCallback(() => {
-    setDragging(false)
+    setDragStatus(DragStatus.NONE)
   }, [])
 
   // we should connect the move and release listeners to the document so the
-  // user can drag outside the knob
+  // user can drag outside the knob.
   useEffect(() => {
-    if (!dragging) {
-      return
-    }
-    const defaultMouseResistance = 200
+    if (dragStatus === DragStatus.MOUSE) {
+      const mouseResistance = resistance * 150
 
-    const onMouseMove = (e: MouseEvent) => {
-      updateDrag(e.clientY, resistance * defaultMouseResistance)
-    }
+      const onMouseMove = (e: MouseEvent) => {
+        updateDrag(e.clientY, mouseResistance)
+      }
 
-    const onMouseUp = () => {
-      endDrag()
-    }
+      const onMouseUp = () => {
+        endDrag()
+      }
 
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('mouseup', onMouseUp)
+      document.addEventListener('mousemove', onMouseMove)
+      document.addEventListener('mouseup', onMouseUp)
 
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('mouseup', onMouseUp)
+      return () => {
+        document.removeEventListener('mousemove', onMouseMove)
+        document.removeEventListener('mouseup', onMouseUp)
+      }
     }
-  }, [dragging, updateDrag, endDrag])
+    if (dragStatus === DragStatus.TOUCH) {
+      const touchResistance = resistance * 150
+
+      const onTouchMove = (e: TouchEvent) => {
+        e.preventDefault()
+        const touches = e.changedTouches
+
+        for (let i = 0; i < touches.length; i++) {
+          const touch = touches.item(i)
+          if (touch && touch.identifier === identifier) {
+            updateDrag(touch.clientY, touchResistance)
+            break
+          }
+        }
+      }
+
+      const onTouchEnd = () => {
+        endDrag()
+      }
+
+      document.addEventListener('touchmove', onTouchMove)
+      document.addEventListener('touchend', onTouchEnd)
+
+      return () => {
+        document.removeEventListener('touchmove', onTouchMove)
+        document.removeEventListener('touchend', onTouchEnd)
+      }
+    }
+  }, [resistance, dragStatus, updateDrag, endDrag, identifier])
 
   return (
     <div
       className="FriendlyRange"
       onMouseDown={e => {
         e.preventDefault()
+        setDragStatus(DragStatus.MOUSE)
         startDrag(e.clientY)
+      }}
+      onTouchStart={e => {
+        e.preventDefault()
+        const touch = e.changedTouches.item(e.changedTouches.length - 1)
+        setIdentifier(touch.identifier)
+        setDragStatus(DragStatus.TOUCH)
+        startDrag(touch.clientY)
       }}
     ></div>
   )

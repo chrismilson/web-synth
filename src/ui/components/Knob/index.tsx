@@ -48,7 +48,16 @@ const Knob: React.FC<KnobProps> = ({
             rotate: `${(endAngle - startAngle) * normalised + startAngle}deg`
           }}
         />
-        <FriendlyRange {...{ value, min, max, step, handleChange }} />
+        <FriendlyRange
+          {...{
+            value,
+            min,
+            max,
+            step,
+            handleChange,
+            resistance: (endAngle - startAngle) / 300
+          }}
+        />
       </div>
       <div className="labels">
         {labels.map((label, i) => {
