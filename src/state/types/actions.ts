@@ -7,7 +7,9 @@ export enum ActionType {
   SET_VCO1_SCALE = 'SET_VCO1_SCALE',
   SET_VCO2_WAVE_SHAPE = 'SET_VCO2_WAVE_SHAPE',
   SET_VCO2_PITCH = 'SET_VCO1_PITCH',
-  SET_VCO2_SCALE = 'SET_VCO2_SCALE'
+  SET_VCO2_SCALE = 'SET_VCO2_SCALE',
+  SET_VCO1_LEVEL = 'SET_VCO1_LEVEL',
+  SET_VCO2_LEVEL = 'SET_VCO2_LEVEL'
 }
 
 export interface SetVolumeAction {
@@ -52,6 +54,16 @@ export interface SetVCO2ScaleAction {
   payload: number
 }
 
+export interface SetVCO1LevelAction {
+  type: ActionType.SET_VCO1_LEVEL
+  payload: number
+}
+
+export interface SetVCO2LevelAction {
+  type: ActionType.SET_VCO2_LEVEL
+  payload: number
+}
+
 export type Action =
   | SetVolumeAction
   | SetVCO1WaveShapeAction
@@ -60,3 +72,5 @@ export type Action =
   | SetVCO2WaveShapeAction
   | SetVCO2PitchAction
   | SetVCO2ScaleAction
+  | SetVCO1LevelAction
+  | SetVCO2LevelAction

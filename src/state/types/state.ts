@@ -24,9 +24,15 @@ export interface VCO2State {
   scale: number
 }
 
+export interface VCOMixerState {
+  vco1Level: number
+  vco2Level: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
   vco1: VCO1State
   vco2: VCO2State
+  vcoMixer: VCOMixerState
 }
