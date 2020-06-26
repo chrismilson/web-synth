@@ -46,7 +46,7 @@ class VCO1Processor extends AudioWorkletProcessor {
     const shape = parameters.shape[0]
 
     const frequency = parameters.frequency
-    const scale = Math.pow(2, parameters.scale[0])
+    const scale = Math.pow(2, parameters.scale[0] - 1)
     const pulseWidth = parameters.pulseWidth[0]
     const constFreq = frequency.length === 1
 
