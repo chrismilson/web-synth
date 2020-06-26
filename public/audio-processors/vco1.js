@@ -1,5 +1,3 @@
-const truncate = v => v - Math.floor(v)
-
 class VCO1Processor extends AudioWorkletProcessor {
   static get parameterDescriptors() {
     return [
@@ -13,7 +11,7 @@ class VCO1Processor extends AudioWorkletProcessor {
         name: 'pulseWidth',
         automationRate: 'k-rate',
         defaultValue: 0.5,
-        min: 0.01,
+        min: 0.5,
         max: 0.99
       },
       {
@@ -24,7 +22,7 @@ class VCO1Processor extends AudioWorkletProcessor {
       },
       {
         name: 'frequency',
-        defaultValue: 440,
+        defaultValue: 110,
         min: Number.EPSILON
       }
     ]
@@ -35,87 +33,56 @@ class VCO1Processor extends AudioWorkletProcessor {
     this.phase = 0
   }
 
-  processTriangle(output, outLen, parameters) {
-    const freq = parameters.frequency
-    const constFreq = freq.length === 1
-
-    for (let c = 0; c < output.length; c++) {
-      const channel = output[c]
-
-      for (let s = 0; s < outLen; s++) {
-        const main = (freq[constFreq ? 0 : s] * s) / sampleRate + this.phase
-        const saw = truncate(main) * 2 - 1
-        channel[s] = Math.abs(saw) * 2 - 1
-      }
-    }
-
-    this.phase += (outLen * freq[freq.length - 1]) / sampleRate
-    this.phase %= sampleRate
+  getSawtoothSample(main) {
+    return (main % 1) * 2 - 1
   }
 
-  processSawtooth(output, outLen, parameters) {
-    const freq = parameters.frequency
-    const constFreq = freq.length === 1
-
-    for (let c = 0; c < output.length; c++) {
-      const channel = output[c]
-
-      for (let s = 0; s < outLen; s++) {
-        const main = (freq[constFreq ? 0 : s] * s) / sampleRate + this.phase
-        channel[s] = truncate(main) * 2 - 1
-      }
-    }
-
-    this.phase += (outLen * freq[freq.length - 1]) / sampleRate
-    this.phase %= sampleRate
+  getTriangleSample(main) {
+    return Math.abs(this.getSawtoothSample(main)) * 2 - 1
   }
 
-  processPulse(output, outLen, parameters) {
-    const pulseWidth = parameters.pulseWidth[0]
-    const freq = parameters.frequency
-    const constFreq = freq.length === 1
-
-    for (let c = 0; c < output.length; c++) {
-      const channel = output[c]
-
-      for (let s = 0; s < outLen; s++) {
-        const main = (freq[constFreq ? 0 : s] * s) / sampleRate + this.phase
-        const indicator = truncate(main) - truncate(main + pulseWidth)
-        channel[s] = indicator > 0 ? 1 : -1
-      }
-    }
-
-    this.phase += (outLen * freq[freq.length - 1]) / sampleRate
-    this.phase %= sampleRate
+  getPWMSample(main, pw) {
+    const indicator = (main % 1) - ((main + pw) % 1)
+    return indicator > 0 ? 1 : -1
   }
 
-  /** Random noise with java's Math.random */
-  processNoise(output, outLen) {
-    for (let c = 0; c < output.length; c++) {
-      const channel = output[c]
-      for (let s = 0; s < outLen; s++) {
-        channel[s] = Math.random() * 2 - 1
-      }
-    }
+  getNoiseSample() {
+    return Math.random() * 2 - 1
   }
 
   process(_inputs, outputs, parameters) {
     const output = outputs[0]
     const outLen = output[0].length
 
-    // throw new Error(parameters.shape)
-
     const shape = parameters.shape[0]
 
-    if (shape === 0) {
-      this.processTriangle(output, outLen, parameters)
-    } else if (shape === 1) {
-      this.processSawtooth(output, outLen, parameters)
-    } else if (shape === 2) {
-      this.processPulse(output, outLen, parameters)
-    } else if (shape === 3) {
-      this.processNoise(output, outLen)
+    const frequency = parameters.frequency
+    const scale = Math.pow(2, parameters.scale[0])
+    const pulseWidth = parameters.pulseWidth[0]
+    const constFreq = frequency.length === 1
+
+    for (let c = 0; c < output.length; c++) {
+      const outChannel = output[c]
+
+      for (let s = 0; s < outLen; s++) {
+        const f = scale * frequency[constFreq ? 0 : s]
+        const main = (f * s) / sampleRate + this.phase
+
+        if (shape === 0) {
+          outChannel[s] = this.getTriangleSample(main)
+        } else if (shape === 1) {
+          outChannel[s] = this.getSawtoothSample(main)
+        } else if (shape === 2) {
+          outChannel[s] = this.getPWMSample(main, pulseWidth)
+        } else if (shape === 3) {
+          outChannel[s] = this.getNoiseSample()
+        }
+      }
     }
+
+    this.phase +=
+      (scale * frequency[frequency.length - 1] * outLen) / sampleRate
+    this.phase %= sampleRate
 
     return true
   }
