@@ -23,16 +23,19 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
   resistance = 1,
   handleChange = () => void 0
 }) => {
-  const validate = useCallback(value => {
-    value = Math.max(min, value)
-    value = Math.min(max, value)
+  const validate = useCallback(
+    value => {
+      value = Math.max(min, value)
+      value = Math.min(max, value)
 
-    if (typeof step === 'number') {
-      const targetStep = Math.round((value - min) / step)
-      value = min + targetStep * step
-    }
-    return value
-  }, [])
+      if (typeof step === 'number') {
+        const targetStep = Math.round((value - min) / step)
+        value = min + targetStep * step
+      }
+      return value
+    },
+    [min, max, step]
+  )
 
   const [dragStatus, setDragStatus] = useState(DragStatus.NONE)
   const [identifier, setIdentifier] = useState(0)
