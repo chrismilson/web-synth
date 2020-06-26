@@ -13,7 +13,7 @@ const mapStateToProps: MapStateToProps<
     value: number
     min: number
     max: number
-    step: number
+    step: string
     title: string
     className: string
     labels: React.ReactNode[]
@@ -24,7 +24,7 @@ const mapStateToProps: MapStateToProps<
   value: state.vco1.pulseWidth,
   min: 0.5,
   max: 0.99,
-  step: 0.001,
+  step: 'any',
   title: 'PW',
   className: 'pulseWidth',
   labels: [

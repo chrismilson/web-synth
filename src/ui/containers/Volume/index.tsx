@@ -38,7 +38,7 @@ const Volume: React.FC<{
         value={value}
         startAngle={-180}
         endAngle={120}
-        step={0.01}
+        step={'any'}
         handleChange={handleChange}
         labels={['STANDBY', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
       />

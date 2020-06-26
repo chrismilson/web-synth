@@ -8,7 +8,7 @@ const mapStateToProps: MapStateToProps<
     value: number
     min: number
     max: number
-    step: number
+    step: string
     title: string
     className: string
     labels: React.ReactNode[]
@@ -19,7 +19,7 @@ const mapStateToProps: MapStateToProps<
   value: state.vcoMixer.vco2Level,
   min: 0,
   max: 1,
-  step: 0.001,
+  step: 'any',
   title: 'VCO 2 LEVEL',
   className: 'vco2',
   labels: [...Array(11)].map((_, i) => i)

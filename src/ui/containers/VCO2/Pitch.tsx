@@ -9,7 +9,7 @@ const mapStateToProps: MapStateToProps<
     value: number
     min: number
     max: number
-    step: number
+    step: string
     title: string
     className: string
     labels: React.ReactNode[]
@@ -20,7 +20,7 @@ const mapStateToProps: MapStateToProps<
   value: state.vco2.pitch,
   min: -1,
   max: 1,
-  step: 0.001,
+  step: 'any',
   title: 'PITCH',
   className: 'pitch',
   labels: [...Array(11)].map((_, i) => i - 5).map(v => (v > 0 ? '+' : '') + v)
