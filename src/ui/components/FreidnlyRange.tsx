@@ -83,7 +83,6 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
       const touchResistance = resistance * 150
 
       const onTouchMove = (e: TouchEvent) => {
-        e.preventDefault()
         const touches = e.changedTouches
 
         for (let i = 0; i < touches.length; i++) {
@@ -124,7 +123,7 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
         setDragStatus(DragStatus.TOUCH)
         startDrag(touch.clientY)
       }}
-    ></div>
+    />
   )
 }
 

@@ -33,6 +33,7 @@
       opacity: 0;
       clip-path: circle(50%);
       margin: 0;
+      touch-action: none;
 
       &:active {
         cursor: grabbing;
