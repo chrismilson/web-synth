@@ -1,6 +1,6 @@
 {
-    "name": "web audio",
-    "short_name": "web audio",
+    "name": "web synth",
+    "short_name": "web synth",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
