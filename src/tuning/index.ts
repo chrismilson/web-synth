@@ -9,7 +9,9 @@ export class TwelveTone {
   }
 
   getNote(note: number) {
-    return this.baseOctave[note % 12] * Math.pow(2, Math.floor(note / 12))
+    const key = ((note % 12) + 12) % 12
+    const octave = Math.floor(note / 12)
+    return this.baseOctave[key] * Math.pow(2, octave)
   }
 }
 
