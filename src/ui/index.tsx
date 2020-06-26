@@ -1,6 +1,7 @@
 import React from 'react'
 import store from '../state/store'
 import initEngine from '../engine'
+import './style.scss'
 
 import VCO1 from './containers/VCO1'
 import VCO2 from './containers/VCO2'

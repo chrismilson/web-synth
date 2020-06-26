@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  flex-wrap: wrap;
+
+  --bg-color: black;
+  --fg-color: #333;
+  --text-color: white;
+  
+  &.light {
+    --bg-color: white;
+    --fg-color: #CCC;
+    --text-color: black;
+  }
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
