@@ -29,7 +29,6 @@
       left: 0;
       height: 100%;
       width: 100%;
-      rotate: -90deg;
       opacity: 0;
       clip-path: circle(50%);
       margin: 0;
@@ -59,7 +58,7 @@
         position: absolute;
         display: flex;
         min-height: 1em;
-        translate: -50% -50%;
+        transform: translate(-50%, -50%);
 
         svg {
           min-width: 1em;
@@ -72,7 +71,6 @@
         border-radius: 0.03em;
         width: 8%;
         background-color: var(--text-color);
-        translate: -50% -50%;
       }
     }
   }

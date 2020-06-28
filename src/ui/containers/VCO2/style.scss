@@ -6,6 +6,12 @@
   justify-content: center;
   align-items: center;
   padding: 1em;
+
+  .waveShape {
+    .labels .label:last-child .child {
+      transform: translate(-23%, -50%);
+    }
+  }
   
   .pitch {
     font-size: 0.8em;

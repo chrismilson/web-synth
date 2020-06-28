@@ -45,7 +45,8 @@ const Knob: React.FC<KnobProps> = ({
         <KnobSVG
           className="visual"
           style={{
-            rotate: `${(endAngle - startAngle) * normalised + startAngle}deg`
+            transform: `rotate(${(endAngle - startAngle) * normalised +
+              startAngle}deg)`
           }}
         />
         <FriendlyRange
@@ -72,7 +73,7 @@ const Knob: React.FC<KnobProps> = ({
               <div
                 className="tickmark"
                 style={{
-                  rotate: `${angle - 180}deg`,
+                  transform: `translate(-50%, -50%) rotate(${angle - 180}deg)`,
                   top: `${50 + dy * 54}%`,
                   left: `${50 + dx * 54}%`
                 }}
@@ -80,8 +81,8 @@ const Knob: React.FC<KnobProps> = ({
               <div
                 className="child"
                 style={{
-                  top: `${50 + dy * 75}%`,
-                  left: `${50 + dx * 80}%`
+                  top: `${50 + dy * 70}%`,
+                  left: `${50 + dx * 70}%`
                 }}
               >
                 {label}
