@@ -1,18 +1,16 @@
-import VCO1Node from './VCO1Node'
-import VCO2Node from './VCO2Node'
 import { observeStore } from '../../state/store'
 
 export default class VCOMixerNode extends GainNode {
   vco1in: GainNode
   vco2in: GainNode
 
-  constructor(context: AudioContext, vco1: VCO1Node, vco2: VCO2Node) {
+  constructor(context: AudioContext) {
     super(context)
     this.vco1in = context.createGain()
     this.vco2in = context.createGain()
 
-    vco1.connect(this.vco1in).connect(this)
-    vco2.connect(this.vco2in).connect(this)
+    this.vco1in.connect(this)
+    this.vco2in.connect(this)
 
     observeStore(
       state => state.vcoMixer.vco1Level,

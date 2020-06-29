@@ -7,9 +7,8 @@ export default class VCO2Node extends AudioWorkletNode {
   scale: AudioParam
   frequency: AudioParam
 
-  constructor(context: AudioContext, vco1: VCO1Node) {
+  constructor(context: AudioContext) {
     super(context, 'vco2-processor')
-    vco1.connect(this)
 
     const shape = this.parameters.get('shape')
     const pitch = this.parameters.get('pitch')
