@@ -8,6 +8,7 @@ import vcoMixer from './vcoMixer'
 import frequencyModulator from './frequencyModulator'
 import highpass from './highpass'
 import lowpass from './lowpass'
+import modulationGenerator from './modulationGenerator'
 
 const volume = getSetter(ActionType.SET_VOLUME, 0)
 
@@ -24,5 +25,6 @@ export default combineReducers({
   masterTune,
   frequencyModulator,
   highpass,
-  lowpass
+  lowpass,
+  modulationGenerator
 })

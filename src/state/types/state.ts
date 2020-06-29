@@ -53,6 +53,14 @@ export interface FilterState {
   peak: number
 }
 
+export interface ModulationGeneratorState {
+  /** The squewedness of the waveform from downramp at 0, to triangle at 0.5,
+   * and upramp at 1.
+   */
+  waveForm: number
+  frequency: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
@@ -64,4 +72,5 @@ export interface RootState {
   frequencyModulator: FrequencyModulatorState
   highpass: FilterState
   lowpass: FilterState
+  modulationGenerator: ModulationGeneratorState
 }

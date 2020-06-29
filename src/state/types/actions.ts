@@ -17,7 +17,9 @@ export enum ActionType {
   SET_HIGHPASS_CUTOFF = 'SET_HIGHPASS_CUTOFF',
   SET_HIGHPASS_PEAK = 'SET_HIGHPASS_PEAK',
   SET_LOWPASS_CUTOFF = 'SET_LOWPASS_CUTOFF',
-  SET_LOWPASS_PEAK = 'SET_LOWPASS_PEAK'
+  SET_LOWPASS_PEAK = 'SET_LOWPASS_PEAK',
+  SET_MODULATION_GENERATOR_WAVE_FORM = 'SET_MODULATION_GENERATOR_WAVE_FORM',
+  SET_MODULATION_GENERATOR_FREQUENCY = 'SET_MODULATION_GENERATOR_FREQUENCY'
 }
 
 export interface SetVolumeAction {
@@ -112,6 +114,16 @@ export interface SetLowpassPeakAction {
   payload: number
 }
 
+export interface SetModulationGeneratorWaveFormAction {
+  type: ActionType.SET_MODULATION_GENERATOR_WAVE_FORM
+  payload: number
+}
+
+export interface SetModulationGeneratorFrequencyAction {
+  type: ActionType.SET_MODULATION_GENERATOR_FREQUENCY
+  payload: number
+}
+
 export type Action =
   | SetVolumeAction
   | SetVCO1WaveShapeAction
@@ -130,3 +142,5 @@ export type Action =
   | SetHighpassPeakAction
   | SetLowpassCutoffAction
   | SetLowpassPeakAction
+  | SetModulationGeneratorWaveFormAction
+  | SetModulationGeneratorFrequencyAction
