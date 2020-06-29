@@ -1,7 +1,11 @@
 const getSawtoothSample = main => (main % 1) * 2 - 1
+
 const getTriangleSample = main => Math.abs(getSawtoothSample(main)) * 2 - 1
+
 const getPWMSample = (main, pw) => ((main % 1) - ((main + pw) % 1) > 0 ? 1 : -1)
+
 const getRingSample = (main, inSample) => getSawtoothSample(main) * inSample
+
 const getNoiseSample = () => Math.random() * 2 - 1
 
 class VCO1Processor extends AudioWorkletProcessor {
@@ -149,5 +153,69 @@ class VCO2Processor extends AudioWorkletProcessor {
   }
 }
 
+class ModulationGeneratorProcessor extends AudioWorkletProcessor {
+  static get parameterDescriptors() {
+    return [
+      {
+        name: 'waveForm',
+        automationRate: 'k-rate',
+        defaultValue: 0.5,
+        min: 0,
+        max: 1
+      },
+      {
+        name: 'frequency',
+        automationRate: 'k-rate',
+        min: Number.EPSILON
+      }
+    ]
+  }
+
+  constructor() {
+    super()
+    this.phase = 0
+  }
+
+  process(_inputs, outputs, parameters) {
+    const triangle = outputs[0]
+    const square = outputs[1]
+    const outLen = triangle[0].length
+
+    const waveForm = parameters.waveForm[0]
+    const frequency = parameters.frequency[0]
+
+    for (let c = 0; c < triangle.length; c++) {
+      const triangleChannel = triangle[c]
+      const squareChannel = square[c]
+
+      for (let s = 0; s < outLen; s++) {
+        const main = (frequency * s) / sampleRate + this.phase
+
+        const offset = (main % 1) - waveForm
+
+        if (offset < 0) {
+          squareChannel[s] = 0
+          triangleChannel[s] = 0.5 + offset / waveForm
+        } else if (offset > 0) {
+          squareChannel[s] = 1
+          triangleChannel[s] = 0.5 - offset / (1 - waveForm)
+        } else {
+          squareChannel[s] = 1
+          triangleChannel[s] = 0.5
+        }
+      }
+    }
+
+    this.phase += (frequency * outLen) / sampleRate
+    this.phase %= sampleRate
+
+    return true
+  }
+}
+
 registerProcessor('vco1-processor', VCO1Processor)
 registerProcessor('vco2-processor', VCO2Processor)
+registerProcessor(
+  'modulation-generator-processor',
+  ModulationGeneratorProcessor
+)
