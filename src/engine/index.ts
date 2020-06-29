@@ -7,10 +7,13 @@ import MasterTuneNode from './custom-nodes/MasterTuneNode'
 import PortamentoNode from './custom-nodes/PortamentoNode'
 import HighpassNode from './custom-nodes/HighpassNode'
 import LowpassNode from './custom-nodes/LowpassNode'
+import ModulationGeneratorNode from './custom-nodes/ModulationGeneratorNode'
+import FrequencyModulatorNode from './custom-nodes/FrequencyModulatorNode'
 
 // loads the external worklet processors and sets up the default patch.
 const init = async () => {
   const context = new AudioContext()
+  await context.resume()
   // the site is not hosted at the root
   await context.audioWorklet.addModule('web-synth/audio-processors.js')
 
@@ -31,6 +34,8 @@ const init = async () => {
 
   const masterTune = new MasterTuneNode(context)
   const portamento = new PortamentoNode(context)
+  const modulationGenerator = new ModulationGeneratorNode(context)
+  const frequencyModulator = new FrequencyModulatorNode(context)
   const vco1 = new VCO1Node(context)
   const vco2 = new VCO2Node(context)
   const vcoMixer = new VCOMixerNode(context)
@@ -43,6 +48,10 @@ const init = async () => {
   freq.connect(masterTune).connect(portamento)
   portamento.connect(vco1.frequency)
   portamento.connect(vco2.frequency)
+
+  modulationGenerator.connect(frequencyModulator.modulationGenerator)
+  frequencyModulator.connect(vco1.frequency)
+  frequencyModulator.connect(vco2.frequency)
 
   vco1.connect(vco2) // ring modulation
 
