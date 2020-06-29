@@ -55,8 +55,7 @@ const Knob: React.FC<KnobProps> = ({
             min,
             max,
             step,
-            handleChange,
-            resistance: (endAngle - startAngle) / 300
+            handleChange
           }}
         />
       </div>

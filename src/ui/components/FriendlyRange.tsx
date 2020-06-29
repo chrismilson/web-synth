@@ -5,7 +5,6 @@ export interface FriendlyRangeProps {
   min: number
   max: number
   value: number
-  resistance?: number
   handleChange?: (newValue: number) => void
 }
 
@@ -20,9 +19,10 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
   min,
   max,
   value,
-  resistance = 1,
   handleChange = () => void 0
 }) => {
+  const resistance = 1 / (max - min)
+
   const validate = useCallback(
     value => {
       value = Math.max(min, value)
