@@ -2,15 +2,21 @@
   padding: 1em;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  
+  .dials {
+    display: flex;
+    flex-direction: column;
 
-  .Knob {
-    margin-bottom: 2em;
-    .labels .label:first-child .child {
-      transform: translate(0, -50%);
+    .Knob {
+      margin-bottom: 1em;
+      .labels .label:first-child .child {
+        transform: translate(0, -50%);
+      }
     }
-  }
-
-  .indicator {
-    align-self: flex-start;
+  
+    .indicator {
+      align-self: flex-start;
+    }
   }
 }

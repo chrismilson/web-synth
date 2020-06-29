@@ -34,17 +34,19 @@ const Volume: React.FC<{
   return (
     <div className="Volume">
       VOLUME
-      <Knob
-        value={value}
-        startAngle={-180}
-        endAngle={120}
-        step={'any'}
-        handleChange={handleChange}
-        labels={['STANDBY', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-      />
-      <div className="indicator">
-        <LED isOn={value > 0} />
-        ON
+      <div className="dials">
+        <Knob
+          value={value}
+          startAngle={-180}
+          endAngle={120}
+          step={'any'}
+          handleChange={handleChange}
+          labels={['STANDBY', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+        />
+        <div className="indicator">
+          <LED isOn={value > 0} />
+          ON
+        </div>
       </div>
     </div>
   )
