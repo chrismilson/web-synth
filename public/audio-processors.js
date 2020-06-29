@@ -195,13 +195,13 @@ class ModulationGeneratorProcessor extends AudioWorkletProcessor {
 
         if (offset < 0) {
           squareChannel[s] = 0
-          triangleChannel[s] = 1 + offset / waveForm
+          triangleChannel[s] = 0.5 + offset / waveForm
         } else if (offset > 0) {
           squareChannel[s] = 1
-          triangleChannel[s] = 1 - offset / (1 - waveForm)
+          triangleChannel[s] = 0.5 - offset / (1 - waveForm)
         } else {
           squareChannel[s] = 1
-          triangleChannel[s] = 1
+          triangleChannel[s] = 0.5
         }
       }
     }
