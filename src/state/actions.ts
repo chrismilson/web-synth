@@ -12,7 +12,11 @@ import {
   SetPortamentoAction,
   SetMasterTune,
   SetFrequencyModulatorModulationGeneratorAction,
-  SetFrequencyModulatorEnvelopeGeneratorAction
+  SetFrequencyModulatorEnvelopeGeneratorAction,
+  SetHighpassCutoffAction,
+  SetHighpassPeakAction,
+  SetLowpassCutoffAction,
+  SetLowpassPeakAction
 } from './types/actions'
 import { VCO1WaveShape, VCO2WaveShape } from './types/state'
 
@@ -89,4 +93,28 @@ export const setFrequencyModulatorEnvelopeGenerator = (
 ): SetFrequencyModulatorEnvelopeGeneratorAction => ({
   type: ActionType.SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR,
   payload: level
+})
+
+export const setHighpassCutoff = (
+  frequency: number
+): SetHighpassCutoffAction => ({
+  type: ActionType.SET_HIGHPASS_CUTOFF,
+  payload: frequency
+})
+
+export const setHighpassPeak = (q: number): SetHighpassPeakAction => ({
+  type: ActionType.SET_HIGHPASS_PEAK,
+  payload: q
+})
+
+export const setLowpassCutoff = (
+  frequency: number
+): SetLowpassCutoffAction => ({
+  type: ActionType.SET_LOWPASS_CUTOFF,
+  payload: frequency
+})
+
+export const setLowpassPeak = (q: number): SetLowpassPeakAction => ({
+  type: ActionType.SET_LOWPASS_PEAK,
+  payload: q
 })

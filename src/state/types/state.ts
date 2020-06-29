@@ -46,6 +46,13 @@ export interface FrequencyModulatorState {
   envelopeGenerator: number
 }
 
+export interface FilterState {
+  /** The cutoff frequency of the filter. */
+  cutoff: number
+  /** The amount of resonance on the filter at the cutoff frequency. */
+  peak: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
@@ -55,4 +62,6 @@ export interface RootState {
   portamento: number
   masterTune: number
   frequencyModulator: FrequencyModulatorState
+  highpass: FilterState
+  lowpass: FilterState
 }

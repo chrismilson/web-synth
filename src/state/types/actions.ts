@@ -13,7 +13,11 @@ export enum ActionType {
   SET_PORTAMENTO = 'SET_PORTAMENTO',
   SET_MASTER_TUNE = 'SET_MASTER_TUNE',
   SET_FREQUENCY_MODULATOR_MODULATION_GENERATOR = 'SET_FREQUENCY_MODULATOR_MODULATION_GENERATOR',
-  SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR = 'SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR'
+  SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR = 'SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR',
+  SET_HIGHPASS_CUTOFF = 'SET_HIGHPASS_CUTOFF',
+  SET_HIGHPASS_PEAK = 'SET_HIGHPASS_PEAK',
+  SET_LOWPASS_CUTOFF = 'SET_LOWPASS_CUTOFF',
+  SET_LOWPASS_PEAK = 'SET_LOWPASS_PEAK'
 }
 
 export interface SetVolumeAction {
@@ -88,6 +92,26 @@ export interface SetFrequencyModulatorEnvelopeGeneratorAction {
   payload: number
 }
 
+export interface SetHighpassCutoffAction {
+  type: ActionType.SET_HIGHPASS_CUTOFF
+  payload: number
+}
+
+export interface SetHighpassPeakAction {
+  type: ActionType.SET_HIGHPASS_PEAK
+  payload: number
+}
+
+export interface SetLowpassCutoffAction {
+  type: ActionType.SET_LOWPASS_CUTOFF
+  payload: number
+}
+
+export interface SetLowpassPeakAction {
+  type: ActionType.SET_LOWPASS_PEAK
+  payload: number
+}
+
 export type Action =
   | SetVolumeAction
   | SetVCO1WaveShapeAction
@@ -102,3 +126,7 @@ export type Action =
   | SetMasterTune
   | SetFrequencyModulatorModulationGeneratorAction
   | SetFrequencyModulatorEnvelopeGeneratorAction
+  | SetHighpassCutoffAction
+  | SetHighpassPeakAction
+  | SetLowpassCutoffAction
+  | SetLowpassPeakAction
