@@ -29,10 +29,30 @@ export interface VCOMixerState {
   vco2Level: number
 }
 
+export interface FrequencyModulatorState {
+  /**
+   * The amount of frequency modulation from the modulation generator.
+   *
+   * Also affects the amount of frequency modulation from Total external
+   * modulation.
+   */
+  modulationGenerator: number
+  /**
+   * The amount of frequency modulation from the envelope generator.
+   *
+   * Also affects the amount of frequency modulation from external frequency
+   * modulation.
+   */
+  envelopeGenerator: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
   vco1: VCO1State
   vco2: VCO2State
   vcoMixer: VCOMixerState
+  portamento: number
+  masterTune: number
+  frequencyModulator: FrequencyModulatorState
 }

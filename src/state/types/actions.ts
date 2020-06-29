@@ -9,7 +9,11 @@ export enum ActionType {
   SET_VCO2_PITCH = 'SET_VCO1_PITCH',
   SET_VCO2_SCALE = 'SET_VCO2_SCALE',
   SET_VCO1_LEVEL = 'SET_VCO1_LEVEL',
-  SET_VCO2_LEVEL = 'SET_VCO2_LEVEL'
+  SET_VCO2_LEVEL = 'SET_VCO2_LEVEL',
+  SET_PORTAMENTO = 'SET_PORTAMENTO',
+  SET_MASTER_TUNE = 'SET_MASTER_TUNE',
+  SET_FREQUENCY_MODULATOR_MODULATION_GENERATOR = 'SET_FREQUENCY_MODULATOR_MODULATION_GENERATOR',
+  SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR = 'SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR'
 }
 
 export interface SetVolumeAction {
@@ -64,6 +68,26 @@ export interface SetVCO2LevelAction {
   payload: number
 }
 
+export interface SetPortamentoAction {
+  type: ActionType.SET_PORTAMENTO
+  payload: number
+}
+
+export interface SetMasterTune {
+  type: ActionType.SET_MASTER_TUNE
+  payload: number
+}
+
+export interface SetFrequencyModulatorModulationGeneratorAction {
+  type: ActionType.SET_FREQUENCY_MODULATOR_MODULATION_GENERATOR
+  payload: number
+}
+
+export interface SetFrequencyModulatorEnvelopeGeneratorAction {
+  type: ActionType.SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR
+  payload: number
+}
+
 export type Action =
   | SetVolumeAction
   | SetVCO1WaveShapeAction
@@ -74,3 +98,7 @@ export type Action =
   | SetVCO2ScaleAction
   | SetVCO1LevelAction
   | SetVCO2LevelAction
+  | SetPortamentoAction
+  | SetMasterTune
+  | SetFrequencyModulatorModulationGeneratorAction
+  | SetFrequencyModulatorEnvelopeGeneratorAction

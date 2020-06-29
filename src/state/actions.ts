@@ -8,7 +8,11 @@ import {
   SetVCO2PitchAction,
   SetVCO2ScaleAction,
   SetVCO1LevelAction,
-  SetVCO2LevelAction
+  SetVCO2LevelAction,
+  SetPortamentoAction,
+  SetMasterTune,
+  SetFrequencyModulatorModulationGeneratorAction,
+  SetFrequencyModulatorEnvelopeGeneratorAction
 } from './types/actions'
 import { VCO1WaveShape, VCO2WaveShape } from './types/state'
 
@@ -60,5 +64,29 @@ export const setVCO1Level = (level: number): SetVCO1LevelAction => ({
 
 export const setVCO2Level = (level: number): SetVCO2LevelAction => ({
   type: ActionType.SET_VCO2_LEVEL,
+  payload: level
+})
+
+export const setPortamento = (port: number): SetPortamentoAction => ({
+  type: ActionType.SET_PORTAMENTO,
+  payload: port
+})
+
+export const setMasterTune = (tune: number): SetMasterTune => ({
+  type: ActionType.SET_MASTER_TUNE,
+  payload: tune
+})
+
+export const setFrequencyModulatorModulationGenerator = (
+  level: number
+): SetFrequencyModulatorModulationGeneratorAction => ({
+  type: ActionType.SET_FREQUENCY_MODULATOR_MODULATION_GENERATOR,
+  payload: level
+})
+
+export const setFrequencyModulatorEnvelopeGenerator = (
+  level: number
+): SetFrequencyModulatorEnvelopeGeneratorAction => ({
+  type: ActionType.SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR,
   payload: level
 })
