@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
-<svg viewBox="-0.05 -0.05 3.1 2.1">
-  <path d="M0,2 L1.5,0 L3,2" stroke="var(--text-color)" stroke-width="0.1" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<svg viewBox="-0.15 -0.15 3.3 2.3">
+  <path d="M0,2 L1.5,0 L3,2" stroke="var(--text-color)" stroke-width="0.3" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
 </svg>
