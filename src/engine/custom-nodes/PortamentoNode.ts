@@ -16,7 +16,11 @@ export default class PortamentoNode extends BiquadFilterNode {
     observeStore(
       state => state.portamento,
       portamento => {
-        this.frequency.value = Math.pow(1 - portamento, 2) * 25 + 1.5
+        const min = 1.5
+        const max = 25
+
+        // a logarithmic response to the portamento value
+        this.frequency.value = Math.pow(max - min + 1, 1 - portamento) + min - 1
       }
     )
   }
