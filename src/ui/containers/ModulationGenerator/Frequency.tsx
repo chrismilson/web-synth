@@ -17,7 +17,7 @@ const mapStateToProps: MapStateToProps<
 > = state => ({
   step: 'any',
   min: 0.5,
-  max: 50,
+  max: 25,
   value: state.modulationGenerator.frequency,
   title: 'FREQUENCY',
   labels: [...Array(11)].map((_, i) => i)
