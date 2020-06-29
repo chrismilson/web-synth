@@ -126,6 +126,13 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
         setDragStatus(DragStatus.TOUCH)
         startDrag(touch.clientY)
       }}
+      // See [the issue](https://github.com/facebook/react/issues/14856)
+      // onWheel={e => {
+      //   e.preventDefault()
+      //   const change = e.deltaY / 1000
+
+      //   handleChange(validate(value + change))
+      // }}
     />
   )
 }
