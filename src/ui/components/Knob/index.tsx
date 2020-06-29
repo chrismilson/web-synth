@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 import { ReactComponent as KnobSVG } from '../../icons/knob.svg'
-import FriendlyRange from '../FreidnlyRange'
+import FriendlyRange from '../FriendlyRange'
 
 export interface KnobProps {
   step?: string | number
