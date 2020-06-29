@@ -1,5 +1,4 @@
 import { observeStore } from '../../state/store'
-import VCO1Node from './VCO1Node'
 
 export default class VCO2Node extends AudioWorkletNode {
   shape: AudioParam
