@@ -10,6 +10,8 @@ import VCOMixer from './containers/VCOMixer'
 import Portamento from './containers/Portamento'
 import MasterTune from './containers/MasterTune'
 import FrequencyModulator from './containers/FrequencyModulator'
+import Highpass from './containers/Highpass'
+import Lowpass from './containers/Lowpass'
 
 const unsubscribe = store.subscribe(() => {
   const volume = store.getState().volume
@@ -30,6 +32,8 @@ export default function App() {
       <Portamento />
       <MasterTune />
       <FrequencyModulator />
+      <Highpass />
+      <Lowpass />
     </div>
   )
 }
