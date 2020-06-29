@@ -29,11 +29,11 @@ export default function App() {
       <VCO2 />
       <VCOMixer />
       <Volume />
+      <Highpass />
+      <Lowpass />
       <Portamento />
       <MasterTune />
       <FrequencyModulator />
-      <Highpass />
-      <Lowpass />
     </div>
   )
 }

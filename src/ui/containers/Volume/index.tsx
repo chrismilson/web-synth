@@ -32,7 +32,7 @@ const Volume: React.FC<{
   handleChange: (value: number) => void
 }> = ({ value, handleChange }) => {
   return (
-    <div className="Volume">
+    <div className="Volume module">
       VOLUME
       <div className="dials">
         <Knob

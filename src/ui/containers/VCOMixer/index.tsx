@@ -5,7 +5,7 @@ import './style.scss'
 
 const VCOMixer: React.FC = () => {
   return (
-    <div className="VCOMixer">
+    <div className="VCOMixer module">
       VCO MIXER
       <VCO1Level />
       <VCO2Level />

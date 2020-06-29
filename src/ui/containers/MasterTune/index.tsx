@@ -31,7 +31,7 @@ const MasterTune: React.FC<{
   handleChange: (value: number) => void
 }> = ({ value, handleChange }) => {
   return (
-    <div className="MasterTune">
+    <div className="MasterTune module">
       MASTER TUNE
       <Knob
         value={value}

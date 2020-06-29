@@ -6,7 +6,7 @@ import './style.scss'
 
 const VCO1: React.FC = () => {
   return (
-    <div className="VCO1">
+    <div className="VCO1 module">
       VOLTAGE CONTROLLED OSCILLATOR 1
       <WaveShape />
       <PulseWidth />

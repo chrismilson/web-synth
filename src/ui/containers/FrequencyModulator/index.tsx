@@ -5,7 +5,7 @@ import './style.scss'
 
 const FrequencyModulator: React.FC = () => {
   return (
-    <div className="FrequencyModulator">
+    <div className="FrequencyModulator module">
       FREQUENCY MODULATION
       <ModulationGenerator />
       <EnvelopeGenerator />

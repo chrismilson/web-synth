@@ -5,7 +5,7 @@ import './style.scss'
 
 const Lowpass: React.FC = () => {
   return (
-    <div className="Lowpass">
+    <div className="Lowpass module">
       VOLTAGE CONTROLLED LOWPASS FILTER
       <Cutoff />
       <Peak />

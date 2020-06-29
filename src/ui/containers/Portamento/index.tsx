@@ -31,7 +31,7 @@ const Portamento: React.FC<{
   handleChange: (value: number) => void
 }> = ({ value, handleChange }) => {
   return (
-    <div className="Portamento">
+    <div className="Portamento module">
       PORTAMENTO
       <Knob
         value={value}
