@@ -12,6 +12,7 @@ import MasterTune from './containers/MasterTune'
 import FrequencyModulator from './containers/FrequencyModulator'
 import Highpass from './containers/Highpass'
 import Lowpass from './containers/Lowpass'
+import ModulationGenerator from './containers/ModulationGenerator'
 
 const unsubscribe = store.subscribe(() => {
   const volume = store.getState().volume
@@ -34,6 +35,7 @@ export default function App() {
       <Portamento />
       <MasterTune />
       <FrequencyModulator />
+      <ModulationGenerator />
     </div>
   )
 }

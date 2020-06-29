@@ -1,0 +1,31 @@
+.ModulationGenerator {
+  grid-row: span 2;
+
+  .waveForm {
+    .child {
+      // the transformations make sure that we dont have to produce more svgs
+      // for reflections.
+
+      .low, .mid, .high {
+        display: grid;
+        gap: 10%;
+
+        svg:first-child {
+          transform: scale(-1, 1);
+        }
+      }
+
+      .low, .high {
+        grid-template-columns: 1em 1em;
+      }
+
+      .high {
+        transform: scale(-1, 1);
+
+        svg:first-child {
+          transform: none;
+        }
+      }
+    }
+  }
+}
