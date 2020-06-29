@@ -1,23 +1,10 @@
 import { combineReducers } from 'redux'
-import { Action, ActionType } from '../types/actions'
+import { ActionType } from '../types/actions'
+import { getSetter } from './common'
 
-const vco1Level = (state = 1, action: Action) => {
-  switch (action.type) {
-    case ActionType.SET_VCO1_LEVEL:
-      return action.payload
-    default:
-      return state
-  }
-}
+const vco1Level = getSetter(ActionType.SET_VCO1_LEVEL, 1)
 
-const vco2Level = (state = 0.5, action: Action) => {
-  switch (action.type) {
-    case ActionType.SET_VCO2_LEVEL:
-      return action.payload
-    default:
-      return state
-  }
-}
+const vco2Level = getSetter(ActionType.SET_VCO2_LEVEL, 0.5)
 
 export default combineReducers({
   vco1Level,

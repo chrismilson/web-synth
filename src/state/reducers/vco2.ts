@@ -1,32 +1,15 @@
-import { Action, ActionType } from '../types/actions'
+import { ActionType } from '../types/actions'
 import { combineReducers } from 'redux'
 import { VCO2WaveShape } from '../types/state'
+import { getSetter } from './common'
 
-const waveShape = (state = VCO2WaveShape.SAWTOOTH, action: Action) => {
-  switch (action.type) {
-    case ActionType.SET_VCO2_WAVE_SHAPE:
-      return action.payload
-    default:
-      return state
-  }
-}
+const waveShape = getSetter(
+  ActionType.SET_VCO2_WAVE_SHAPE,
+  VCO2WaveShape.SAWTOOTH
+)
 
-const pitch = (state = 0, action: Action) => {
-  switch (action.type) {
-    case ActionType.SET_VCO2_PITCH:
-      return action.payload
-    default:
-      return state
-  }
-}
+const pitch = getSetter(ActionType.SET_VCO2_PITCH, 0)
 
-const scale = (state = 0, action: Action) => {
-  switch (action.type) {
-    case ActionType.SET_VCO2_SCALE:
-      return action.payload
-    default:
-      return state
-  }
-}
+const scale = getSetter(ActionType.SET_VCO2_SCALE, 0)
 
 export default combineReducers({ waveShape, pitch, scale })
