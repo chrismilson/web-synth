@@ -28,7 +28,6 @@ class VCO1Processor extends AudioWorkletProcessor {
       },
       {
         name: 'frequency',
-        defaultValue: 110,
         min: Number.EPSILON
       }
     ]
@@ -100,7 +99,6 @@ class VCO2Processor extends AudioWorkletProcessor {
       },
       {
         name: 'frequency',
-        defaultValue: 440,
         min: Number.EPSILON
       }
     ]
