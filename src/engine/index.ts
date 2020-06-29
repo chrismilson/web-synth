@@ -2,6 +2,7 @@ import VCO1Node from './custom-nodes/VCO1Node'
 import VCO2Node from './custom-nodes/VCO2Node'
 import VCOMixerNode from './custom-nodes/VCOMixerNode'
 import VolumeNode from './custom-nodes/VolumeNode'
+import AudioContext from './audioContext'
 
 // loads the external worklet processors and sets up the default patch.
 const init = async () => {
