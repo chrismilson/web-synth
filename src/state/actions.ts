@@ -136,3 +136,38 @@ export const setEnvelopeGenerator1Release = (
   type: ActionType.SET_ENVELOPE_GENERATOR_1_RELEASE,
   payload: time
 })
+
+export const setEnvelopeGenerator2Hold = (
+  time: number
+): actions.SetEnvelopeGenerator2HoldAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_HOLD,
+  payload: time
+})
+
+export const setEnvelopeGenerator2Attack = (
+  time: number
+): actions.SetEnvelopeGenerator2AttackAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_ATTACK,
+  payload: time
+})
+
+export const setEnvelopeGenerator2Decay = (
+  time: number
+): actions.SetEnvelopeGenerator2DecayAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_DECAY,
+  payload: time
+})
+
+export const setEnvelopeGenerator2Sustain = (
+  level: number
+): actions.SetEnvelopeGenerator2SustainAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_SUSTAIN,
+  payload: level
+})
+
+export const setEnvelopeGenerator2Release = (
+  time: number
+): actions.SetEnvelopeGenerator2ReleaseAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_RELEASE,
+  payload: time
+})

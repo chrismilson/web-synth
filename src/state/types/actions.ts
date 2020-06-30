@@ -22,7 +22,12 @@ export enum ActionType {
   SET_MODULATION_GENERATOR_FREQUENCY = 'SET_MODULATION_GENERATOR_FREQUENCY',
   SET_ENVELOPE_GENERATOR_1_DELAY = 'SET_ENVELOPE_GENERATOR_1_DELAY',
   SET_ENVELOPE_GENERATOR_1_ATTACK = 'SET_ENVELOPE_GENERATOR_1_ATTACK',
-  SET_ENVELOPE_GENERATOR_1_RELEASE = 'SET_ENVELOPE_GENERATOR_1_RELEASE'
+  SET_ENVELOPE_GENERATOR_1_RELEASE = 'SET_ENVELOPE_GENERATOR_1_RELEASE',
+  SET_ENVELOPE_GENERATOR_2_HOLD = 'SET_ENVELOPE_GENERATOR_2_HOLD',
+  SET_ENVELOPE_GENERATOR_2_ATTACK = 'SET_ENVELOPE_GENERATOR_2_ATTACK',
+  SET_ENVELOPE_GENERATOR_2_DECAY = 'SET_ENVELOPE_GENERATOR_2_DECAY',
+  SET_ENVELOPE_GENERATOR_2_SUSTAIN = 'SET_ENVELOPE_GENERATOR_2_SUSTAIN',
+  SET_ENVELOPE_GENERATOR_2_RELEASE = 'SET_ENVELOPE_GENERATOR_2_RELEASE'
 }
 
 export interface SetVolumeAction {
@@ -139,6 +144,31 @@ export interface SetEnvelopeGenerator1AttackAction {
 
 export interface SetEnvelopeGenerator1ReleaseAction {
   type: ActionType.SET_ENVELOPE_GENERATOR_1_RELEASE
+  payload: number
+}
+
+export interface SetEnvelopeGenerator2HoldAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_HOLD
+  payload: number
+}
+
+export interface SetEnvelopeGenerator2AttackAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_ATTACK
+  payload: number
+}
+
+export interface SetEnvelopeGenerator2DecayAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_DECAY
+  payload: number
+}
+
+export interface SetEnvelopeGenerator2SustainAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_SUSTAIN
+  payload: number
+}
+
+export interface SetEnvelopeGenerator2ReleaseAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_2_RELEASE
   payload: number
 }
 

@@ -9,6 +9,8 @@ import frequencyModulator from './frequencyModulator'
 import highpass from './highpass'
 import lowpass from './lowpass'
 import modulationGenerator from './modulationGenerator'
+import envelopeGenerator1 from './envelopeGenerator1'
+import envelopeGenerator2 from './envelopeGenerator2'
 
 const volume = getSetter(ActionType.SET_VOLUME, 0)
 
@@ -26,5 +28,7 @@ export default combineReducers({
   frequencyModulator,
   highpass,
   lowpass,
-  modulationGenerator
+  modulationGenerator,
+  envelopeGenerator1,
+  envelopeGenerator2
 })

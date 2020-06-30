@@ -67,6 +67,14 @@ export interface DAREnvelopeState {
   release: number
 }
 
+export interface HADSREnvelopeState {
+  hold: number
+  attack: number
+  decay: number
+  sustain: number
+  release: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
@@ -80,4 +88,5 @@ export interface RootState {
   lowpass: FilterState
   modulationGenerator: ModulationGeneratorState
   envelopeGenerator1: DAREnvelopeState
+  envelopeGenerator2: HADSREnvelopeState
 }
