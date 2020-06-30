@@ -1,7 +1,10 @@
+#root {
+  width: 100%;
+}
+
 .App {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-  width: 100vw;
   min-height: 100vh;
   place-content: center;
   gap: 1px;
