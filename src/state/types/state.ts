@@ -61,6 +61,12 @@ export interface ModulationGeneratorState {
   frequency: number
 }
 
+export interface DAREnvelopeState {
+  delay: number
+  attack: number
+  release: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
@@ -73,4 +79,5 @@ export interface RootState {
   highpass: FilterState
   lowpass: FilterState
   modulationGenerator: ModulationGeneratorState
+  envelopeGenerator1: DAREnvelopeState
 }

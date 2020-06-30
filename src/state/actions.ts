@@ -115,3 +115,24 @@ export const setModulationGeneratorFrequency = (
   type: ActionType.SET_MODULATION_GENERATOR_FREQUENCY,
   payload: frequency
 })
+
+export const setEnvelopeGenerator1Delay = (
+  time: number
+): actions.SetEnvelopeGenerator1DelayAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_1_DELAY,
+  payload: time
+})
+
+export const setEnvelopeGenerator1Attack = (
+  time: number
+): actions.SetEnvelopeGenerator1AttackAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_1_ATTACK,
+  payload: time
+})
+
+export const setEnvelopeGenerator1Release = (
+  time: number
+): actions.SetEnvelopeGenerator1ReleaseAction => ({
+  type: ActionType.SET_ENVELOPE_GENERATOR_1_RELEASE,
+  payload: time
+})

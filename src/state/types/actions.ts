@@ -19,7 +19,10 @@ export enum ActionType {
   SET_LOWPASS_CUTOFF = 'SET_LOWPASS_CUTOFF',
   SET_LOWPASS_PEAK = 'SET_LOWPASS_PEAK',
   SET_MODULATION_GENERATOR_WAVE_FORM = 'SET_MODULATION_GENERATOR_WAVE_FORM',
-  SET_MODULATION_GENERATOR_FREQUENCY = 'SET_MODULATION_GENERATOR_FREQUENCY'
+  SET_MODULATION_GENERATOR_FREQUENCY = 'SET_MODULATION_GENERATOR_FREQUENCY',
+  SET_ENVELOPE_GENERATOR_1_DELAY = 'SET_ENVELOPE_GENERATOR_1_DELAY',
+  SET_ENVELOPE_GENERATOR_1_ATTACK = 'SET_ENVELOPE_GENERATOR_1_ATTACK',
+  SET_ENVELOPE_GENERATOR_1_RELEASE = 'SET_ENVELOPE_GENERATOR_1_RELEASE'
 }
 
 export interface SetVolumeAction {
@@ -124,6 +127,21 @@ export interface SetModulationGeneratorFrequencyAction {
   payload: number
 }
 
+export interface SetEnvelopeGenerator1DelayAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_1_DELAY
+  payload: number
+}
+
+export interface SetEnvelopeGenerator1AttackAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_1_ATTACK
+  payload: number
+}
+
+export interface SetEnvelopeGenerator1ReleaseAction {
+  type: ActionType.SET_ENVELOPE_GENERATOR_1_RELEASE
+  payload: number
+}
+
 export type Action =
   | SetVolumeAction
   | SetVCO1WaveShapeAction
@@ -144,3 +162,6 @@ export type Action =
   | SetLowpassPeakAction
   | SetModulationGeneratorWaveFormAction
   | SetModulationGeneratorFrequencyAction
+  | SetEnvelopeGenerator1DelayAction
+  | SetEnvelopeGenerator1AttackAction
+  | SetEnvelopeGenerator1ReleaseAction
