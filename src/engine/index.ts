@@ -14,8 +14,13 @@ import FrequencyModulatorNode from './custom-nodes/FrequencyModulatorNode'
 const init = async () => {
   const context = new AudioContext()
   await context.resume()
+
   // the site is not hosted at the root
-  await context.audioWorklet.addModule('web-synth/audio-processors.js')
+  if (process.env.NODE_ENV === 'development') {
+    await context.audioWorklet.addModule('web-synth/audio-processors.js')
+  } else {
+    await context.audioWorklet.addModule('audio-processors.js')
+  }
 
   // a filler for changing frequency.
   const freq = context.createConstantSource()
