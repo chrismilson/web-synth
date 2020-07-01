@@ -213,9 +213,54 @@ class ModulationGeneratorProcessor extends AudioWorkletProcessor {
   }
 }
 
+class PortamentoProcessor extends AudioWorkletProcessor {
+  static get parameterDescriptors() {
+    return [
+      {
+        name: 'time',
+        automationRate: 'k-rate',
+        min: 0
+      }
+    ]
+  }
+
+  constructor() {
+    super()
+    this.previousValue = []
+  }
+
+  process(inputs, outputs, parameters) {
+    const input = inputs[0]
+    const output = outputs[0]
+    const outLen = output[0].length
+
+    const limit = 1 - parameters.time[0]
+
+    for (let c = 0; c < output.length; c++) {
+      const inChannel = input[c]
+      const outChannel = output[c]
+
+      let value = this.previousValue[c] || 0
+
+      for (let s = 0; s < outLen; s++) {
+        const inSample = inChannel[s]
+
+        value += Math.max(-limit, Math.min(limit, inSample - value))
+
+        outChannel[s] = value
+      }
+
+      this.previousValue[c] = value
+    }
+
+    return true
+  }
+}
+
 registerProcessor('vco1-processor', VCO1Processor)
 registerProcessor('vco2-processor', VCO2Processor)
 registerProcessor(
   'modulation-generator-processor',
   ModulationGeneratorProcessor
 )
+registerProcessor('portamento-processor', PortamentoProcessor)
