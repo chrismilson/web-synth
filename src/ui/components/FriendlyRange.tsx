@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 
 export interface FriendlyRangeProps {
   step: number | string
@@ -111,6 +111,32 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
     }
   }, [resistance, dragStatus, updateDrag, endDrag, identifier])
 
+  // There is currently an issue with react and chrome and the default
+  // passiveness of wheel listeners.
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (ref.current) {
+      const elem = ref.current
+
+      const onWheel = (e: WheelEvent) => {
+        e.preventDefault()
+
+        const change = e.deltaY
+
+        handleChange(validate(value + change / 800))
+      }
+
+      elem.addEventListener('wheel', onWheel, { passive: false })
+
+      return () => {
+        if (elem) {
+          elem.removeEventListener('wheel', onWheel)
+        }
+      }
+    }
+  }, [handleChange, value, validate])
+
   return (
     <div
       className="FriendlyRange"
@@ -120,19 +146,12 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
         startDrag(e.clientY)
       }}
       onTouchStart={e => {
-        e.preventDefault()
         const touch = e.changedTouches.item(e.changedTouches.length - 1)
         setIdentifier(touch.identifier)
         setDragStatus(DragStatus.TOUCH)
         startDrag(touch.clientY)
       }}
-      // See [the issue](https://github.com/facebook/react/issues/14856)
-      // onWheel={e => {
-      //   e.preventDefault()
-      //   const change = e.deltaY / 1000
-
-      //   handleChange(validate(value + change))
-      // }}
+      ref={ref}
     />
   )
 }
