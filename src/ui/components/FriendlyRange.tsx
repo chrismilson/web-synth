@@ -22,6 +22,7 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
   handleChange = () => void 0
 }) => {
   const resistance = 1 / (max - min)
+  const defaultValue = useState(value)[0]
 
   const validate = useCallback(
     value => {
@@ -150,6 +151,11 @@ const FriendlyRange: React.FC<FriendlyRangeProps> = ({
         setIdentifier(touch.identifier)
         setDragStatus(DragStatus.TOUCH)
         startDrag(touch.clientY)
+      }}
+      onDoubleClick={e => {
+        e.preventDefault()
+
+        handleChange(defaultValue)
       }}
       ref={ref}
     />
