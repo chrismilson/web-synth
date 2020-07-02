@@ -1,9 +1,9 @@
-import reference from './references/five-limit'
+import fiveLimit from './references/five-limit'
 
 export class TwelveTone {
   private baseOctave: number[]
 
-  constructor(fundamental: number) {
+  constructor(fundamental: number, reference = fiveLimit) {
     // this.baseOctave = fiveLimitReference.map(ratio => ratio * fundamental)
     this.baseOctave = reference.map(ratio => ratio * fundamental)
   }
