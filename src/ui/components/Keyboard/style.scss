@@ -1,0 +1,44 @@
+.Keyboard {
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+  height: 20vh;
+
+  .Key {
+    box-sizing: border-box;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    user-select: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    &.white {
+      --primary-color: var(--bg-color);
+      --secondary-color: var(--text-color);
+      min-width: 60px;
+      z-index: 1;
+      flex: 1;
+      border: 1px solid var(--secondary-color);
+    }
+
+    &.black {
+      --primary-color: var(--text-color);
+      --secondary-color: var(--bg-color);
+      min-width: 40px;
+      height: 60%;
+      margin: 0 -20px;
+      z-index: 2;
+    }
+
+    &.down {
+      box-shadow: inset 0 0 0.5em 0 var(--secondary-color);
+    }
+  }
+}
