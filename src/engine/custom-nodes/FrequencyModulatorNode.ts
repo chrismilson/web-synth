@@ -6,24 +6,46 @@ export default class FrequencyModulatorNode extends GainNode {
 
   constructor(context: AudioContext) {
     super(context)
+    this.gain.value = 0
 
-    this.modulationGenerator = context.createGain()
+    // the envelope in will be in the range 0 to 1, we want to change it so that
+    // it is in the range 0 to level where level is the setting for EG.
     this.envelopeGenerator = context.createGain()
+    // the modulation generator will be in the range -1 to 1
+    this.modulationGenerator = context.createGain()
 
-    this.modulationGenerator.connect(this)
-    this.envelopeGenerator.connect(this)
+    // we then want to offset the incoming values
+    const egOffset = context.createConstantSource()
+    const mgOffset = context.createConstantSource()
+    mgOffset.offset.value = 1
+    egOffset.start()
+    mgOffset.start()
+
+    // we then want to multiply the values together and apply that to the
+    // incoming signal
+    const multiplier = context.createGain()
+    multiplier.gain.value = 0
+
+    this.modulationGenerator.connect(multiplier)
+    mgOffset.connect(multiplier)
+
+    this.envelopeGenerator.connect(multiplier.gain)
+    egOffset.connect(multiplier.gain)
+
+    multiplier.connect(this.gain)
 
     observeStore(
       state => state.frequencyModulator.modulationGenerator,
       level => {
-        this.modulationGenerator.gain.value = Math.pow(500, level) - 1
+        this.modulationGenerator.gain.value = level
       }
     )
 
     observeStore(
       state => state.frequencyModulator.envelopeGenerator,
       level => {
-        this.envelopeGenerator.gain.value = Math.pow(500, level) - 1
+        this.envelopeGenerator.gain.value = level
+        egOffset.offset.value = 1 - level
       }
     )
   }
