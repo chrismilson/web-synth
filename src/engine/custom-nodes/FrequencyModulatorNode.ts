@@ -1,10 +1,21 @@
 import { observeStore } from '../../state/store'
+import { Selectors } from './common'
 
 export default class FrequencyModulatorNode extends GainNode {
   modulationGenerator: GainNode
   envelopeGenerator: GainNode
 
-  constructor(context: AudioContext) {
+  constructor(
+    context: AudioContext,
+    selectors: Selectors<{
+      modulationGenerator: number
+      envelopeGenerator: number
+    }> = {
+      modulationGenerator: state =>
+        state.frequencyModulator.modulationGenerator,
+      envelopeGenerator: state => state.frequencyModulator.envelopeGenerator
+    }
+  ) {
     super(context)
     this.gain.value = 0
 
@@ -34,19 +45,13 @@ export default class FrequencyModulatorNode extends GainNode {
 
     multiplier.connect(this.gain)
 
-    observeStore(
-      state => state.frequencyModulator.modulationGenerator,
-      level => {
-        this.modulationGenerator.gain.value = level
-      }
-    )
+    observeStore(selectors.modulationGenerator, level => {
+      this.modulationGenerator.gain.value = level
+    })
 
-    observeStore(
-      state => state.frequencyModulator.envelopeGenerator,
-      level => {
-        this.envelopeGenerator.gain.value = level
-        egOffset.offset.value = 1 - level
-      }
-    )
+    observeStore(selectors.envelopeGenerator, level => {
+      this.envelopeGenerator.gain.value = level
+      egOffset.offset.value = 1 - level
+    })
   }
 }

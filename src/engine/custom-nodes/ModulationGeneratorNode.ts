@@ -1,10 +1,17 @@
 import { observeStore } from '../../state/store'
+import { Selectors } from './common'
 
 export default class ModulationGeneratorNode extends AudioWorkletNode {
   waveForm: AudioParam
   frequency: AudioParam
 
-  constructor(context: AudioContext) {
+  constructor(
+    context: AudioContext,
+    selectors: Selectors<{ waveForm: number; frequency: number }> = {
+      waveForm: state => state.modulationGenerator.waveForm,
+      frequency: state => state.modulationGenerator.frequency
+    }
+  ) {
     super(context, 'modulation-generator-processor', { numberOfOutputs: 2 })
 
     const waveForm = this.parameters.get('waveForm')
@@ -17,18 +24,12 @@ export default class ModulationGeneratorNode extends AudioWorkletNode {
     this.waveForm = waveForm
     this.frequency = frequency
 
-    observeStore(
-      state => state.modulationGenerator.waveForm,
-      waveForm => {
-        this.waveForm.value = waveForm
-      }
-    )
+    observeStore(selectors.waveForm, waveForm => {
+      this.waveForm.value = waveForm
+    })
 
-    observeStore(
-      state => state.modulationGenerator.frequency,
-      frequency => {
-        this.frequency.value = frequency
-      }
-    )
+    observeStore(selectors.frequency, frequency => {
+      this.frequency.value = frequency
+    })
   }
 }

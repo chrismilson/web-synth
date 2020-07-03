@@ -1,11 +1,19 @@
 import { observeStore } from '../../state/store'
+import { Selectors } from './common'
 
 export default class DAREnvelopeNode extends AudioWorkletNode {
   delay: AudioParam
   attack: AudioParam
   release: AudioParam
 
-  constructor(context: AudioContext) {
+  constructor(
+    context: AudioContext,
+    selectors: Selectors<{ delay: number; attack: number; release: number }> = {
+      delay: state => state.envelopeGenerator1.delay,
+      attack: state => state.envelopeGenerator1.attack,
+      release: state => state.envelopeGenerator1.release
+    }
+  ) {
     super(context, 'dar-envelope-processor')
 
     const delay = this.parameters.get('delay')
@@ -20,23 +28,14 @@ export default class DAREnvelopeNode extends AudioWorkletNode {
     this.attack = attack
     this.release = release
 
-    observeStore(
-      state => state.envelopeGenerator1.delay,
-      delay => {
-        this.delay.value = delay
-      }
-    )
-    observeStore(
-      state => state.envelopeGenerator1.attack,
-      attack => {
-        this.attack.value = attack
-      }
-    )
-    observeStore(
-      state => state.envelopeGenerator1.release,
-      release => {
-        this.release.value = release
-      }
-    )
+    observeStore(selectors.delay, delay => {
+      this.delay.value = delay
+    })
+    observeStore(selectors.attack, attack => {
+      this.attack.value = attack
+    })
+    observeStore(selectors.release, release => {
+      this.release.value = release
+    })
   }
 }

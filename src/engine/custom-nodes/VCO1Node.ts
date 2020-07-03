@@ -1,4 +1,6 @@
 import { observeStore } from '../../state/store'
+import { Selectors } from './common'
+import { VCO1WaveShape } from '../../state/types/state'
 
 export default class VCO1Node extends AudioWorkletNode {
   shape: AudioParam
@@ -6,7 +8,18 @@ export default class VCO1Node extends AudioWorkletNode {
   scale: AudioParam
   frequency: AudioParam
 
-  constructor(context: AudioContext) {
+  constructor(
+    context: AudioContext,
+    selectors: Selectors<{
+      waveShape: VCO1WaveShape
+      pulseWidth: number
+      scale: number
+    }> = {
+      waveShape: state => state.vco1.waveShape,
+      pulseWidth: state => state.vco1.pulseWidth,
+      scale: state => state.vco1.scale
+    }
+  ) {
     super(context, 'vco1-processor')
 
     const shape = this.parameters.get('shape')
@@ -29,23 +42,14 @@ export default class VCO1Node extends AudioWorkletNode {
     this.frequency = frequency
 
     // observe the state for changes in the values
-    observeStore(
-      state => state.vco1.waveShape,
-      shape => {
-        this.shape.value = shape
-      }
-    )
-    observeStore(
-      state => state.vco1.pulseWidth,
-      pulseWidth => {
-        this.pulseWidth.value = pulseWidth
-      }
-    )
-    observeStore(
-      state => state.vco1.scale,
-      scale => {
-        this.scale.value = scale
-      }
-    )
+    observeStore(selectors.waveShape, shape => {
+      this.shape.value = shape
+    })
+    observeStore(selectors.pulseWidth, pulseWidth => {
+      this.pulseWidth.value = pulseWidth
+    })
+    observeStore(selectors.scale, scale => {
+      this.scale.value = scale
+    })
   }
 }
