@@ -212,10 +212,19 @@ export type Action =
   | SetFrequencyModulatorEnvelopeGeneratorAction
   | SetHighpassCutoffAction
   | SetHighpassPeakAction
+  | SetHighpassModulatorModulationGeneratorAction
+  | SetHighpassModulatorEnvelopeGeneratorAction
   | SetLowpassCutoffAction
   | SetLowpassPeakAction
+  | SetLowpassModulatorModulationGeneratorAction
+  | SetLowpassModulatorEnvelopeGeneratorAction
   | SetModulationGeneratorWaveFormAction
   | SetModulationGeneratorFrequencyAction
   | SetEnvelopeGenerator1DelayAction
   | SetEnvelopeGenerator1AttackAction
   | SetEnvelopeGenerator1ReleaseAction
+  | SetEnvelopeGenerator2HoldAction
+  | SetEnvelopeGenerator2AttackAction
+  | SetEnvelopeGenerator2DecayAction
+  | SetEnvelopeGenerator2SustainAction
+  | SetEnvelopeGenerator2ReleaseAction
