@@ -9,11 +9,17 @@ import HighpassNode from './custom-nodes/HighpassNode'
 import LowpassNode from './custom-nodes/LowpassNode'
 import ModulationGeneratorNode from './custom-nodes/ModulationGeneratorNode'
 import FrequencyModulatorNode from './custom-nodes/FrequencyModulatorNode'
+import KeyboardNode from './custom-nodes/KeyboardNode'
+import DAREnvelopeNode from './custom-nodes/DAREnvelopeNode'
+import HADSREnvelopeNode from './custom-nodes/HADSREnvelopeNode'
 
 // loads the external worklet processors and sets up the default patch.
 const init = async () => {
   const context = new AudioContext()
   await context.resume()
+  if (context.state !== 'running') {
+    throw new Error('The audio context failed to start.')
+  }
 
   // the site is not hosted at the root
   if (process.env.NODE_ENV === 'development') {
@@ -22,24 +28,13 @@ const init = async () => {
     await context.audioWorklet.addModule('audio-processors.js')
   }
 
-  // a filler for changing frequency.
-  const freq = context.createConstantSource()
-  freq.offset.value = 440
-  freq.start()
-
-  setInterval(() => {
-    if (freq.offset.value === 440) {
-      freq.offset.value = 220
-    } else {
-      freq.offset.value = 440
-    }
-  }, 1000)
-
   // instantiate each of the modules
-
+  const keyboard = new KeyboardNode(context)
   const masterTune = new MasterTuneNode(context)
   const portamento = new PortamentoNode(context)
   const modulationGenerator = new ModulationGeneratorNode(context)
+  const envelopeGenerator1 = new DAREnvelopeNode(context)
+  const envelopeGenerator2 = new HADSREnvelopeNode(context)
   const frequencyModulator = new FrequencyModulatorNode(context)
   const vco1 = new VCO1Node(context)
   const vco2 = new VCO2Node(context)
@@ -50,13 +45,29 @@ const init = async () => {
 
   // initialise the default patch
 
-  freq.connect(masterTune).connect(portamento)
-  portamento.connect(vco1.frequency)
-  portamento.connect(vco2.frequency)
+  // the keyboard triggers both envelopes
+  keyboard.trigger.connect(envelopeGenerator1)
+  keyboard.trigger.connect(envelopeGenerator2)
 
+  // the keyboard frequency gets tuned and ported.
+  keyboard.frequency.connect(portamento).connect(masterTune)
+
+  // the frequency then gets modulated
+  masterTune.connect(frequencyModulator)
+
+  // there are two sources for modulation:
+  // the modulation generator (a low frequency oscillator); and,
   modulationGenerator.connect(frequencyModulator.modulationGenerator)
+  // the first envelope generator.
+  envelopeGenerator1.connect(frequencyModulator.envelopeGenerator)
   frequencyModulator.connect(vco1.frequency)
   frequencyModulator.connect(vco2.frequency)
+
+  // the cutoff for both filters is also frequency modulated.
+  modulationGenerator.connect(highpass.cutoff.modulationGenerator)
+  modulationGenerator.connect(lowpass.cutoff.modulationGenerator)
+  envelopeGenerator2.connect(highpass.cutoff.envelopeGenerator)
+  envelopeGenerator2.connect(lowpass.cutoff.envelopeGenerator)
 
   vco1.connect(vco2) // ring modulation
 
@@ -68,6 +79,8 @@ const init = async () => {
     .connect(lowpass)
     .connect(volume)
     .connect(context.destination)
+
+  return keyboard.triggerNote
 }
 
 export default init
