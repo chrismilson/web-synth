@@ -16,8 +16,12 @@ export enum ActionType {
   SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR = 'SET_FREQUENCY_MODULATOR_ENVELOPE_GENERATOR',
   SET_HIGHPASS_CUTOFF = 'SET_HIGHPASS_CUTOFF',
   SET_HIGHPASS_PEAK = 'SET_HIGHPASS_PEAK',
+  SET_HIGHPASS_MODULATOR_MODULATION_GENERATOR = 'SET_HIGHPASS_MODULATOR_MODULATION_GENERATOR',
+  SET_HIGHPASS_MODULATOR_ENVELOPE_GENERATOR = 'SET_HIGHPASS_MODULATOR_ENVELOPE_GENERATOR',
   SET_LOWPASS_CUTOFF = 'SET_LOWPASS_CUTOFF',
   SET_LOWPASS_PEAK = 'SET_LOWPASS_PEAK',
+  SET_LOWPASS_MODULATOR_MODULATION_GENERATOR = 'SET_LOWPASS_MODULATOR_MODULATION_GENERATOR',
+  SET_LOWPASS_MODULATOR_ENVELOPE_GENERATOR = 'SET_LOWPASS_MODULATOR_ENVELOPE_GENERATOR',
   SET_MODULATION_GENERATOR_WAVE_FORM = 'SET_MODULATION_GENERATOR_WAVE_FORM',
   SET_MODULATION_GENERATOR_FREQUENCY = 'SET_MODULATION_GENERATOR_FREQUENCY',
   SET_ENVELOPE_GENERATOR_1_DELAY = 'SET_ENVELOPE_GENERATOR_1_DELAY',
@@ -112,6 +116,16 @@ export interface SetHighpassPeakAction {
   payload: number
 }
 
+export interface SetHighpassModulatorModulationGeneratorAction {
+  type: ActionType.SET_HIGHPASS_MODULATOR_MODULATION_GENERATOR
+  payload: number
+}
+
+export interface SetHighpassModulatorEnvelopeGeneratorAction {
+  type: ActionType.SET_HIGHPASS_MODULATOR_ENVELOPE_GENERATOR
+  payload: number
+}
+
 export interface SetLowpassCutoffAction {
   type: ActionType.SET_LOWPASS_CUTOFF
   payload: number
@@ -119,6 +133,16 @@ export interface SetLowpassCutoffAction {
 
 export interface SetLowpassPeakAction {
   type: ActionType.SET_LOWPASS_PEAK
+  payload: number
+}
+
+export interface SetLowpassModulatorModulationGeneratorAction {
+  type: ActionType.SET_LOWPASS_MODULATOR_MODULATION_GENERATOR
+  payload: number
+}
+
+export interface SetLowpassModulatorEnvelopeGeneratorAction {
+  type: ActionType.SET_LOWPASS_MODULATOR_ENVELOPE_GENERATOR
   payload: number
 }
 

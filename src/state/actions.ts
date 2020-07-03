@@ -90,6 +90,20 @@ export const setHighpassPeak = (q: number): actions.SetHighpassPeakAction => ({
   payload: q
 })
 
+export const setHighpassModulatorModulationGenerator = (
+  level: number
+): actions.SetHighpassModulatorModulationGeneratorAction => ({
+  type: ActionType.SET_HIGHPASS_MODULATOR_MODULATION_GENERATOR,
+  payload: level
+})
+
+export const setHighpassModulatorEnvelopeGenerator = (
+  level: number
+): actions.SetHighpassModulatorEnvelopeGeneratorAction => ({
+  type: ActionType.SET_HIGHPASS_MODULATOR_ENVELOPE_GENERATOR,
+  payload: level
+})
+
 export const setLowpassCutoff = (
   frequency: number
 ): actions.SetLowpassCutoffAction => ({
@@ -100,6 +114,20 @@ export const setLowpassCutoff = (
 export const setLowpassPeak = (q: number): actions.SetLowpassPeakAction => ({
   type: ActionType.SET_LOWPASS_PEAK,
   payload: q
+})
+
+export const setLowpassModulatorModulationGenerator = (
+  level: number
+): actions.SetLowpassModulatorModulationGeneratorAction => ({
+  type: ActionType.SET_LOWPASS_MODULATOR_MODULATION_GENERATOR,
+  payload: level
+})
+
+export const setLowpassModulatorEnvelopeGenerator = (
+  level: number
+): actions.SetLowpassModulatorEnvelopeGeneratorAction => ({
+  type: ActionType.SET_LOWPASS_MODULATOR_ENVELOPE_GENERATOR,
+  payload: level
 })
 
 export const setModulationGeneratorWaveForm = (

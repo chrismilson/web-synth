@@ -6,7 +6,23 @@ const cutoff = getSetter(ActionType.SET_LOWPASS_CUTOFF, 1)
 
 const peak = getSetter(ActionType.SET_LOWPASS_PEAK, 0)
 
+const modulationGenerator = getSetter(
+  ActionType.SET_LOWPASS_MODULATOR_MODULATION_GENERATOR,
+  0
+)
+
+const envelopeGenerator = getSetter(
+  ActionType.SET_LOWPASS_MODULATOR_ENVELOPE_GENERATOR,
+  0
+)
+
+const modulator = combineReducers({
+  modulationGenerator,
+  envelopeGenerator
+})
+
 export default combineReducers({
   cutoff,
-  peak
+  peak,
+  modulator
 })

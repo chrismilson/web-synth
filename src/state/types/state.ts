@@ -51,6 +51,8 @@ export interface FilterState {
   cutoff: number
   /** The amount of resonance on the filter at the cutoff frequency. */
   peak: number
+  /** The amount of modulation from the modulation generator */
+  modulator: FrequencyModulatorState
 }
 
 export interface ModulationGeneratorState {
