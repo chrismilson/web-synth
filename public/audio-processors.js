@@ -257,6 +257,95 @@ class PortamentoProcessor extends AudioWorkletProcessor {
   }
 }
 
+class DAREnvelopeProcessor extends AudioWorkletProcessor {
+  static get parameterDescriptors() {
+    return [
+      {
+        name: 'delay',
+        automationRate: 'k-rate',
+        min: 0
+      },
+      {
+        name: 'attack',
+        automationRate: 'k-rate',
+        min: 0
+      },
+      {
+        name: 'release',
+        automationRate: 'k-rate',
+        min: 0
+      }
+    ]
+  }
+
+  constructor() {
+    super()
+    // the current number of consecutive samples in the given state
+    this.phase = 0
+    this.stage = 'release'
+    this.value = []
+  }
+
+  process(inputs, outputs, parameters) {
+    const input = inputs[0]
+    const output = outputs[0]
+    const outLen = output[0].length
+
+    const delay = Math.max(10, parameters.delay[0] * sampleRate)
+    const attack = Math.max(10, parameters.attack[0] * sampleRate)
+    const release = Math.max(10, parameters.release[0] * sampleRate)
+
+    for (let c = 0; c < output.length; c++) {
+      const inChannel = input[c]
+      const outChannel = output[c]
+
+      let value = this.value[c] || 0
+      for (let s = 0; s < outLen; s++) {
+        const on = inChannel[s] > 0.5
+
+        if (on) {
+          if (this.stage === 'release') {
+            this.stage = 'delay'
+            this.phase = 0
+          }
+          if (this.stage === 'delay') {
+            if (this.phase < delay) {
+              value = 0
+              this.phase += 1
+            } else {
+              this.stage = 'attack'
+              this.phase = 0
+            }
+          }
+          if (this.stage === 'attack') {
+            if (this.phase <= attack) {
+              value = this.phase / attack
+              this.phase += 1
+            } else {
+              value = 1
+            }
+          }
+          outChannel[s] = value
+        } else {
+          if (this.stage !== 'release') {
+            this.stage = 'release'
+            this.phase = 0
+          }
+
+          if (this.phase < release) {
+            outChannel[s] = value * (1 - this.phase / release)
+            this.phase += 1
+          } else {
+            outChannel[s] = 0
+          }
+        }
+      }
+      this.value[c] = value
+    }
+    return true
+  }
+}
+
 registerProcessor('vco1-processor', VCO1Processor)
 registerProcessor('vco2-processor', VCO2Processor)
 registerProcessor(
@@ -264,3 +353,4 @@ registerProcessor(
   ModulationGeneratorProcessor
 )
 registerProcessor('portamento-processor', PortamentoProcessor)
+registerProcessor('dar-envelope-processor', DAREnvelopeProcessor)
