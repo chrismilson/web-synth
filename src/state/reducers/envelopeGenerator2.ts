@@ -8,7 +8,7 @@ const attack = getSetter(ActionType.SET_ENVELOPE_GENERATOR_2_ATTACK, 0)
 
 const decay = getSetter(ActionType.SET_ENVELOPE_GENERATOR_2_DECAY, 0)
 
-const sustain = getSetter(ActionType.SET_ENVELOPE_GENERATOR_2_SUSTAIN, 0)
+const sustain = getSetter(ActionType.SET_ENVELOPE_GENERATOR_2_SUSTAIN, 1)
 
 const release = getSetter(ActionType.SET_ENVELOPE_GENERATOR_2_RELEASE, 0)
 
