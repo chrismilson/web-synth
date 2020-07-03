@@ -25,7 +25,6 @@ export default class KeyboardNode {
     this.scale = new TwelveTone(440, equalTemper)
 
     this.triggerNote = this.triggerNote.bind(this)
-    this.triggerNote(69, true)
   }
 
   triggerNote(note: number, on: boolean) {
