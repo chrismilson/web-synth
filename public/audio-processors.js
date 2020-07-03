@@ -329,10 +329,118 @@ class DAREnvelopeProcessor extends AudioWorkletProcessor {
         } else {
           if (this.stage !== 'release') {
             this.stage = 'release'
+            this.phase = 1
+          }
+
+          if (this.phase >= release) {
             this.phase = 0
           }
 
-          if (this.phase < release) {
+          if (this.phase > 0) {
+            outChannel[s] = value * (1 - this.phase / release)
+            this.phase += 1
+          } else {
+            outChannel[s] = 0
+          }
+        }
+      }
+      this.value[c] = value
+    }
+    return true
+  }
+}
+
+class HADSREnvelopeProcessor extends AudioWorkletProcessor {
+  static get parameterDescriptors() {
+    return [
+      {
+        name: 'hold',
+        automationRate: 'k-rate',
+        min: 0
+      },
+      {
+        name: 'attack',
+        automationRate: 'k-rate',
+        min: 0
+      },
+      {
+        name: 'decay',
+        automationRate: 'k-rate',
+        min: 0
+      },
+      {
+        name: 'sustain',
+        automationRate: 'k-rate',
+        min: 0
+      },
+      {
+        name: 'release',
+        automationRate: 'k-rate',
+        min: 0
+      }
+    ]
+  }
+
+  constructor() {
+    super()
+    // the current number of consecutive samples in the given state
+    this.phase = 0
+    this.stage = 'release'
+    this.value = []
+  }
+
+  process(inputs, outputs, parameters) {
+    const input = inputs[0]
+    const output = outputs[0]
+    const outLen = output[0].length
+
+    const hold = Math.max(10, parameters.hold[0] * sampleRate)
+    const attack = Math.max(10, parameters.attack[0] * sampleRate)
+    const decay = Math.max(10, parameters.decay[0] * sampleRate)
+    const sustain = parameters.sustain[0]
+    const release = Math.max(10, parameters.release[0] * sampleRate)
+
+    for (let c = 0; c < output.length; c++) {
+      const inChannel = input[c]
+      const outChannel = output[c]
+
+      let value = this.value[c] || 0
+      for (let s = 0; s < outLen; s++) {
+        const on = inChannel[s] > 0.5
+
+        if (on) {
+          if (this.stage === 'release') {
+            this.stage = 'attack'
+            this.phase = 0
+          }
+          if (this.stage === 'attack') {
+            if (this.phase < attack) {
+              value = this.phase / attack
+              this.phase += 1
+            } else {
+              this.stage = 'decay'
+              this.phase = 0
+            }
+          }
+          if (this.stage === 'decay') {
+            if (this.phase < decay) {
+              value = (this.phase / decay) * (sustain - 1) + 1
+              this.phase += 1
+            } else {
+              value = sustain
+            }
+          }
+          outChannel[s] = value
+        } else {
+          if (this.stage !== 'release') {
+            this.stage = 'release'
+            this.phase = 1
+          }
+          if (this.phase >= release) {
+            this.phase = 0
+          }
+
+          if (this.phase > 0) {
             outChannel[s] = value * (1 - this.phase / release)
             this.phase += 1
           } else {
@@ -354,3 +462,4 @@ registerProcessor(
 )
 registerProcessor('portamento-processor', PortamentoProcessor)
 registerProcessor('dar-envelope-processor', DAREnvelopeProcessor)
+registerProcessor('hadsr-envelope-processor', HADSREnvelopeProcessor)
