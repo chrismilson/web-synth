@@ -42,6 +42,8 @@ const init = async () => {
   const highpass = new HighpassNode(context)
   const lowpass = new LowpassNode(context)
   const volume = new VolumeNode(context)
+  const vca = context.createGain()
+  vca.gain.value = 0
 
   // initialise the default patch
 
@@ -74,9 +76,12 @@ const init = async () => {
   vco1.connect(vcoMixer.vco1in)
   vco2.connect(vcoMixer.vco2in)
 
+  envelopeGenerator2.connect(vca.gain)
+
   vcoMixer
     .connect(highpass)
     .connect(lowpass)
+    .connect(vca)
     .connect(volume)
     .connect(context.destination)
 
