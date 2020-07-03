@@ -8,6 +8,12 @@
   min-height: 100vh;
   place-content: center;
   gap: 1px;
+  padding: 1px;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  padding-bottom: var(--keyboard-height);
+
+  --keyboard-height: 20vh;
 
   --bg-color: black;
   --fg-color: #333;
@@ -28,6 +34,18 @@
     padding: 1em;
   }
 
-  color: var(--text-color);
-  background-color: var(--bg-color);
+  .keyboardDock {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow-x: scroll;
+    z-index: 1;
+    height: var(--keyboard-height);
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }

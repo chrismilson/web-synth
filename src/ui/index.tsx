@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import store from '../state/store'
 import initEngine from '../engine'
 import './style.scss'
@@ -15,19 +15,45 @@ import Lowpass from './containers/Lowpass'
 import ModulationGenerator from './containers/ModulationGenerator'
 import EnvelopeGenerator1 from './containers/EnvelopeGenerator1'
 import EnvelopeGenerator2 from './containers/EnvelopeGenerator2'
-
-const unsubscribe = store.subscribe(() => {
-  const volume = store.getState().volume
-
-  if (volume !== 0) {
-    unsubscribe()
-    initEngine()
-  }
-})
+import Keyboard from './components/Keyboard'
 
 export default function App() {
+  const [keyboardHandler, setKeyboardHandler] = useState<
+    (note: number, on: boolean) => void | undefined
+  >()
+
+  useEffect(() => {
+    let pending = false
+    const unsubscribe = store.subscribe(() => {
+      const volume = store.getState().volume
+
+      if (volume !== 0 && !pending) {
+        pending = true
+        initEngine()
+          .then(keyboardHandler => {
+            if (keyboardHandler) {
+              setKeyboardHandler(() => keyboardHandler)
+              console.log('Engine initialisation success.')
+              unsubscribe()
+            } else {
+              throw new Error('No keyboard bindings')
+            }
+          })
+          .catch(error => {
+            console.log('Engine initialisation failed.')
+            console.error(error)
+            // try again
+            pending = false
+          })
+      }
+    })
+  }, [])
+
   return (
     <div className="App">
+      <div className="keyboardDock">
+        <Keyboard min={15} max={51} handler={keyboardHandler} />
+      </div>
       <VCO1 />
       <VCO2 />
       <VCOMixer />
