@@ -22,6 +22,8 @@ export default class KeyboardNode {
     this.frequency.start()
     this.trigger.start()
 
+    // // this scale is just tunung in the key of C
+    // this.scale = new TwelveTone(450, fiveLimit, Key.C)
     this.scale = new TwelveTone(440, equalTemper)
 
     this.triggerNote = this.triggerNote.bind(this)
