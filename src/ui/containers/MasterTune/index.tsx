@@ -1,50 +1,23 @@
 import React from 'react'
 import './style.scss'
-import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux'
-import { RootState } from '../../../state/types/state'
 import { setMasterTune } from '../../../state/actions'
-import Knob from '../../components/Knob'
+import ValueKnob from '../common/ValueKnob'
 
-const mapStateToProps: MapStateToProps<
-  {
-    value: number
-  },
-  {},
-  RootState
-> = state => ({
-  value: state.masterTune
-})
-
-const mapDispatchToProps: MapDispatchToProps<
-  {
-    handleChange: (value: number) => void
-  },
-  {}
-> = dispatch => ({
-  handleChange: value => {
-    dispatch(setMasterTune(value))
-  }
-})
-
-const MasterTune: React.FC<{
-  value: number
-  handleChange: (value: number) => void
-}> = ({ value, handleChange }) => {
+const MasterTune: React.FC = () => {
   return (
     <div className="MasterTune module">
       MASTER TUNE
-      <Knob
-        value={value}
-        step={'any'}
-        min={-1}
-        max={1}
-        handleChange={handleChange}
+      <ValueKnob
+        selector={state => state.masterTune}
+        actionCreator={setMasterTune}
         labels={[...Array(11)]
           .map((_, i) => i - 5)
           .map(i => (i > 0 ? '+' : '') + i)}
+        min={-1}
+        max={1}
       />
     </div>
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MasterTune)
+export default MasterTune
