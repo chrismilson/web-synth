@@ -1,7 +1,12 @@
 import React from 'react'
 import './style.scss'
 import ValueKnob from '../common/ValueKnob'
-import { setHighpassCutoff, setHighpassPeak } from '../../../state/actions'
+import {
+  setHighpassCutoff,
+  setHighpassPeak,
+  setHighpassModulatorModulationGenerator,
+  setHighpassModulatorEnvelopeGenerator
+} from '../../../state/actions'
 
 const Highpass: React.FC = () => {
   return (
@@ -16,6 +21,17 @@ const Highpass: React.FC = () => {
         selector={state => state.highpass.peak}
         actionCreator={setHighpassPeak}
         title="PEAK"
+      />
+      CUTOFF FREQUENCY MODULATION
+      <ValueKnob
+        selector={state => state.highpass.modulator.modulationGenerator}
+        actionCreator={setHighpassModulatorModulationGenerator}
+        title="MG/T.EXT"
+      />
+      <ValueKnob
+        selector={state => state.highpass.modulator.envelopeGenerator}
+        actionCreator={setHighpassModulatorEnvelopeGenerator}
+        title="EG2/EXT"
       />
     </div>
   )
