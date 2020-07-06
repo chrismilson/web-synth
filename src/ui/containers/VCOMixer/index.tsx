@@ -1,14 +1,22 @@
 import React from 'react'
-import VCO1Level from './vco1Level'
-import VCO2Level from './vco2Level'
 import './style.scss'
+import ValueKnob from '../common/ValueKnob'
+import { setVCO1Level, setVCO2Level } from '../../../state/actions'
 
 const VCOMixer: React.FC = () => {
   return (
     <div className="VCOMixer module">
       VCO MIXER
-      <VCO1Level />
-      <VCO2Level />
+      <ValueKnob
+        selector={state => state.vcoMixer.vco1Level}
+        actionCreator={setVCO1Level}
+        title="VCO 1 LEVEL"
+      />
+      <ValueKnob
+        selector={state => state.vcoMixer.vco2Level}
+        actionCreator={setVCO2Level}
+        title="VCO 2 LEVEL"
+      />
     </div>
   )
 }
