@@ -77,6 +77,15 @@ export interface HADSREnvelopeState {
   release: number
 }
 
+export interface KeyboardState {
+  /** the number of octaves in the keyboard */
+  octaves: number
+  /** the state of each key */
+  keys: boolean[]
+  /** the note value of the lowest note on the keyboard */
+  bassNote: number
+}
+
 export interface RootState {
   /** Master volume */
   volume: number
@@ -91,4 +100,5 @@ export interface RootState {
   modulationGenerator: ModulationGeneratorState
   envelopeGenerator1: DAREnvelopeState
   envelopeGenerator2: HADSREnvelopeState
+  keyboard: KeyboardState
 }

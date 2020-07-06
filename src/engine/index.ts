@@ -84,8 +84,6 @@ const init = async () => {
     .connect(vca)
     .connect(volume)
     .connect(context.destination)
-
-  return keyboard.triggerNote
 }
 
 export default init

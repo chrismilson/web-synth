@@ -199,3 +199,27 @@ export const setEnvelopeGenerator2Release = (
   type: ActionType.SET_ENVELOPE_GENERATOR_2_RELEASE,
   payload: time
 })
+
+export const setKeyboardOctaves = (
+  octaves: number
+): actions.SetKeyboardOctavesAction => ({
+  type: ActionType.SET_KEYBOARD_OCTAVES,
+  payload: octaves
+})
+
+export const setKeyDown = (note: number): actions.SetKeyDownAction => ({
+  type: ActionType.SET_KEY_DOWN,
+  payload: note
+})
+
+export const setKeyUp = (note: number): actions.SetKeyUpAction => ({
+  type: ActionType.SET_KEY_UP,
+  payload: note
+})
+
+export const setBassNote = (
+  note: number
+): actions.SetKeyboardBassNoteAction => ({
+  type: ActionType.SET_KEYBOARD_BASS_NOTE,
+  payload: note
+})

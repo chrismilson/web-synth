@@ -11,6 +11,7 @@ import lowpass from './lowpass'
 import modulationGenerator from './modulationGenerator'
 import envelopeGenerator1 from './envelopeGenerator1'
 import envelopeGenerator2 from './envelopeGenerator2'
+import keyboard from './keyboard'
 
 const volume = getSetter(ActionType.SET_VOLUME, 0)
 
@@ -30,5 +31,6 @@ export default combineReducers({
   lowpass,
   modulationGenerator,
   envelopeGenerator1,
-  envelopeGenerator2
+  envelopeGenerator2,
+  keyboard
 })

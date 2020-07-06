@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import store from '../state/store'
 import initEngine from '../engine'
 import './style.scss'
@@ -15,13 +15,9 @@ import Lowpass from './containers/Lowpass'
 import ModulationGenerator from './containers/ModulationGenerator'
 import EnvelopeGenerator1 from './containers/EnvelopeGenerator1'
 import EnvelopeGenerator2 from './containers/EnvelopeGenerator2'
-import Keyboard from './components/Keyboard'
+import SynthKeys from './containers/SynthKeys'
 
 export default function App() {
-  const [keyboardHandler, setKeyboardHandler] = useState<
-    (note: number, on: boolean) => void | undefined
-  >()
-
   useEffect(() => {
     let pending = false
     const unsubscribe = store.subscribe(() => {
@@ -30,14 +26,9 @@ export default function App() {
       if (volume !== 0 && !pending) {
         pending = true
         initEngine()
-          .then(keyboardHandler => {
-            if (keyboardHandler) {
-              setKeyboardHandler(() => keyboardHandler)
-              console.log('Engine initialisation success.')
-              unsubscribe()
-            } else {
-              throw new Error('No keyboard bindings')
-            }
+          .then(() => {
+            console.log('Engine initialisation success.')
+            unsubscribe()
           })
           .catch(error => {
             console.log('Engine initialisation failed.')
@@ -52,7 +43,7 @@ export default function App() {
   return (
     <div className="App">
       <div className="keyboardDock">
-        <Keyboard min={15} max={51} handler={keyboardHandler} />
+        <SynthKeys />
       </div>
       <VCO1 />
       <VCO2 />

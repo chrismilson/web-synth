@@ -31,7 +31,11 @@ export enum ActionType {
   SET_ENVELOPE_GENERATOR_2_ATTACK = 'SET_ENVELOPE_GENERATOR_2_ATTACK',
   SET_ENVELOPE_GENERATOR_2_DECAY = 'SET_ENVELOPE_GENERATOR_2_DECAY',
   SET_ENVELOPE_GENERATOR_2_SUSTAIN = 'SET_ENVELOPE_GENERATOR_2_SUSTAIN',
-  SET_ENVELOPE_GENERATOR_2_RELEASE = 'SET_ENVELOPE_GENERATOR_2_RELEASE'
+  SET_ENVELOPE_GENERATOR_2_RELEASE = 'SET_ENVELOPE_GENERATOR_2_RELEASE',
+  SET_KEYBOARD_OCTAVES = 'SET_KEYBOARD_OCTAVES',
+  SET_KEY_DOWN = 'SET_KEY_DOWN',
+  SET_KEY_UP = 'SET_KEY_UP',
+  SET_KEYBOARD_BASS_NOTE = 'SET_KEYBOARD_BASS_NOTE'
 }
 
 export interface SetVolumeAction {
@@ -196,6 +200,26 @@ export interface SetEnvelopeGenerator2ReleaseAction {
   payload: number
 }
 
+export interface SetKeyboardOctavesAction {
+  type: ActionType.SET_KEYBOARD_OCTAVES
+  payload: number
+}
+
+export interface SetKeyDownAction {
+  type: ActionType.SET_KEY_DOWN
+  payload: number
+}
+
+export interface SetKeyUpAction {
+  type: ActionType.SET_KEY_UP
+  payload: number
+}
+
+export interface SetKeyboardBassNoteAction {
+  type: ActionType.SET_KEYBOARD_BASS_NOTE
+  payload: number
+}
+
 export type Action =
   | SetVolumeAction
   | SetVCO1WaveShapeAction
@@ -228,3 +252,7 @@ export type Action =
   | SetEnvelopeGenerator2DecayAction
   | SetEnvelopeGenerator2SustainAction
   | SetEnvelopeGenerator2ReleaseAction
+  | SetKeyboardOctavesAction
+  | SetKeyDownAction
+  | SetKeyUpAction
+  | SetKeyboardBassNoteAction
