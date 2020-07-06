@@ -33,7 +33,7 @@ export class TwelveTone {
     note -= this.key
     const key = ((note % 12) + 12) % 12
     const octave = Math.floor(note / 12)
-    return this.baseOctave[key] * Math.pow(2, octave)
+    return this.baseOctave[key] * Math.pow(2, octave - 6)
   }
 }
 
