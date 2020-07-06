@@ -47,6 +47,8 @@ const ModulationGenerator: React.FC = () => {
         selector={state => state.modulationGenerator.frequency}
         actionCreator={setModulationGeneratorFrequency}
         title="FREQUENCY"
+        min={0.2}
+        max={30}
       />
     </div>
   )

@@ -10,6 +10,8 @@ export interface ValueKnobProps {
   labels?: React.ReactNode[]
   title?: string
   className?: string
+  min?: number
+  max?: number
 }
 
 const mapStateToProps: MapStateToProps<
@@ -24,8 +26,8 @@ const mapStateToProps: MapStateToProps<
   RootState
 > = (state, ownProps) => ({
   step: 'any',
-  min: 0,
-  max: 1,
+  min: ownProps.min || 0,
+  max: ownProps.max || 1,
   value: ownProps.selector(state),
   labels: ownProps.labels || [...Array(11)].map((_, i) => i),
   title: ownProps.title,
