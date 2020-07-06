@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import Key from './Key'
 import './style.scss'
 
+/** Maps key values from the [DOM Level 3 Events
+ * spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values) to
+ * offset values from 0 for calculating the intended key to press. */
 const notesByKey: {
   [k: string]: number
 } = {
@@ -38,7 +41,10 @@ const notesByKey: {
   '9': 25,
   o: 26,
   '0': 27,
-  p: 28
+  p: 28,
+  '[': 29,
+  '=': 30,
+  ']': 31
 }
 
 export interface KeyboardProps {

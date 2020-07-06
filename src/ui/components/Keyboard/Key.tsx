@@ -39,6 +39,8 @@ const Key: React.FC<KeyProps> = ({ note, handler, isOn }) => {
       onMouseOver={mouseStart}
       onMouseUp={isOn ? end : undefined}
       onMouseLeave={isOn ? end : undefined}
+      onTouchStart={start}
+      onTouchEnd={isOn ? end : undefined}
     >
       {note}
     </div>
