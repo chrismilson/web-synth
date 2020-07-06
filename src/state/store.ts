@@ -1,8 +1,21 @@
-import { createStore } from 'redux'
-import reducer from './reducers'
+import { createStore, Store } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import rootReducer from './reducers'
 import { RootState } from './types/state'
 
-const store = createStore(reducer)
+const reducer = persistReducer(
+  {
+    key: 'web-synth',
+    storage,
+    blacklist: ['volume', 'keyboard']
+  },
+  rootReducer
+)
+
+export const store = createStore(reducer)
+
+export const persistor = persistStore((store as unknown) as Store)
 
 export const observeStore = function<T>(
   select: (state: RootState) => T,
