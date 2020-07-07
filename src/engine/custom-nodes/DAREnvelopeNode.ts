@@ -1,5 +1,5 @@
 import { observeStore } from '../../state/store'
-import { Selectors } from './common'
+import { Selectors, ParamaterError } from './common'
 
 export default class DAREnvelopeNode extends AudioWorkletNode {
   delay: AudioParam
@@ -21,7 +21,7 @@ export default class DAREnvelopeNode extends AudioWorkletNode {
     const release = this.parameters.get('release')
 
     if (delay === undefined || attack === undefined || release === undefined) {
-      throw new Error('Incorrect parameters on custom processor')
+      throw new ParamaterError()
     }
 
     this.delay = delay

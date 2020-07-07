@@ -1,5 +1,5 @@
 import { observeStore } from '../../state/store'
-import { Selectors } from './common'
+import { Selectors, ParamaterError } from './common'
 
 export default class ModulationGeneratorNode extends AudioWorkletNode {
   waveForm: AudioParam
@@ -18,7 +18,7 @@ export default class ModulationGeneratorNode extends AudioWorkletNode {
     const frequency = this.parameters.get('frequency')
 
     if (waveForm === undefined || frequency === undefined) {
-      throw new Error('Incorrect parameters on custom processor')
+      throw new ParamaterError()
     }
 
     this.waveForm = waveForm

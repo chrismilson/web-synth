@@ -1,5 +1,5 @@
 import { observeStore } from '../../state/store'
-import { Selectors } from './common'
+import { Selectors, ParamaterError } from './common'
 
 export default class HADSREnvelopeNode extends AudioWorkletNode {
   hold: AudioParam
@@ -39,7 +39,7 @@ export default class HADSREnvelopeNode extends AudioWorkletNode {
       sustain === undefined ||
       release === undefined
     ) {
-      throw new Error('Incorrect parameters on custom processor')
+      throw new ParamaterError()
     }
 
     this.hold = hold

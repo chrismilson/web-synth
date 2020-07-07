@@ -1,5 +1,5 @@
 import { observeStore } from '../../state/store'
-import { Selectors } from './common'
+import { Selectors, ParamaterError } from './common'
 import { VCO2WaveShape } from '../../state/types/state'
 
 export default class VCO2Node extends AudioWorkletNode {
@@ -33,7 +33,7 @@ export default class VCO2Node extends AudioWorkletNode {
       scale === undefined ||
       frequency === undefined
     ) {
-      throw new Error('Incorrect parameters on custom processor')
+      throw new ParamaterError()
     }
 
     this.shape = shape

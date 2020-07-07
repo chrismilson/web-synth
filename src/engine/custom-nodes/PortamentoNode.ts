@@ -1,5 +1,5 @@
 import { observeStore } from '../../state/store'
-import { Selectors } from './common'
+import { Selectors, ParamaterError } from './common'
 
 /**
  * This node adds a lowpass filter on the control frequency, effectively adding
@@ -19,7 +19,7 @@ export default class PortamentoNode extends AudioWorkletNode {
     const time = this.parameters.get('time')
 
     if (time === undefined) {
-      throw new Error('Incorrect parameters on custom processor')
+      throw new ParamaterError()
     }
 
     this.time = time
