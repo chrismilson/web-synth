@@ -1,4 +1,4 @@
-class NoiseProcessor extends AudioWorkletProcessor {
+class WhiteNoiseProcessor extends AudioWorkletProcessor {
   process(_inputs, outputs) {
     const output = outputs[0]
 
@@ -9,6 +9,45 @@ class NoiseProcessor extends AudioWorkletProcessor {
         outChannel[s] = Math.random() * 2 - 1
       }
     }
+
+    return true
+  }
+}
+
+class PinkNoiseProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super()
+    this.n = 32
+    this.octaves = { 0: 0 }
+    for (let i = 1; i < this.n; i++) {
+      this.octaves[1 << (i - 1)] = 0
+    }
+    this.sum = 0
+    this.phase = 0
+  }
+
+  getOctave(s) {
+    return s & ~(s - 1) & ((1 << (this.n - 1)) - 1)
+  }
+
+  process(_inputs, outputs) {
+    const output = outputs[0]
+    const outLen = output[0].length
+
+    for (let c = 0; c < output.length; c++) {
+      const outChannel = output[c]
+
+      for (let s = 0; s < outChannel.length; s++) {
+        const octave = this.getOctave(s + this.phase)
+        const rand = Math.random()
+        this.sum += rand - this.octaves[octave]
+        this.octaves[octave] = rand
+        outChannel[s] = this.sum
+      }
+    }
+
+    this.phase += outLen
+    this.phase %= sampleRate
 
     return true
   }
@@ -386,7 +425,8 @@ class HADSREnvelopeProcessor extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor('noise-processor', NoiseProcessor)
+registerProcessor('white-noise-processor', WhiteNoiseProcessor)
+registerProcessor('pink-noise-processor', PinkNoiseProcessor)
 registerProcessor('pulse-processor', PulseProcessor)
 registerProcessor('xor-processor', XORProcessor)
 registerProcessor(

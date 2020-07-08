@@ -24,7 +24,7 @@ export default class VCO1Node extends GainNode {
     const triangle = context.createOscillator()
     const saw = context.createOscillator()
     const pulse = new PulseOscillatorNode(context)
-    const noise = new AudioWorkletNode(context, 'noise-processor')
+    const noise = new AudioWorkletNode(context, 'white-noise-processor')
     const frequency = context.createConstantSource()
     const scale = context.createGain()
 
