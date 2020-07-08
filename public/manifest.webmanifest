@@ -1,6 +1,6 @@
 {
-    "name": "web synth",
-    "short_name": "web synth",
+    "name": "Shlappas Web Synth",
+    "short_name": "Web Synth",
     "icons": [
         {
             "src": "icons/android-chrome-192x192.png",
