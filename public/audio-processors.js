@@ -77,9 +77,7 @@ class XORProcessor extends AudioWorkletProcessor {
       const outChannel = output[c]
 
       for (let s = 0; s < outLen; s++) {
-        const a = channelA[s] > 0
-        const b = channelB[s] > 0
-        outChannel[s] = a !== b ? 1 : -1
+        outChannel[s] = Math.sign(channelA[s] * channelB[s])
       }
     }
 
