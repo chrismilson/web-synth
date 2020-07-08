@@ -1,34 +1,28 @@
-const getSawtoothSample = main => (main % 1) * 2 - 1
+class NoiseProcessor extends AudioWorkletProcessor {
+  process(_inputs, outputs) {
+    const output = outputs[0]
 
-const getTriangleSample = main => Math.abs(getSawtoothSample(main)) * 2 - 1
+    for (let c = 0; c < output.length; c++) {
+      const outChannel = output[c]
 
-const getPWMSample = (main, pw) => ((main % 1) - ((main + pw) % 1) > 0 ? 1 : -1)
+      for (let s = 0; s < outChannel.length; s++) {
+        outChannel[s] = Math.random() * 2 - 1
+      }
+    }
 
-const getRingSample = (main, inSample) => getSawtoothSample(main) * inSample
+    return true
+  }
+}
 
-const getNoiseSample = () => Math.random() * 2 - 1
-
-class VCO1Processor extends AudioWorkletProcessor {
+class PulseProcessor extends AudioWorkletProcessor {
   static get parameterDescriptors() {
     return [
-      {
-        name: 'shape',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
-      },
       {
         name: 'pulseWidth',
         automationRate: 'k-rate',
         defaultValue: 0.5,
         min: 0.5,
         max: 0.99
-      },
-      {
-        name: 'scale',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
       },
       {
         name: 'frequency',
@@ -46,108 +40,48 @@ class VCO1Processor extends AudioWorkletProcessor {
     const output = outputs[0]
     const outLen = output[0].length
 
-    const shape = parameters.shape[0]
-
     const frequency = parameters.frequency
-    const scale = Math.pow(2, parameters.scale[0] - 1)
-    const pulseWidth = parameters.pulseWidth[0]
     const constFreq = frequency.length === 1
+
+    const pulseWidth = parameters.pulseWidth[0]
 
     for (let c = 0; c < output.length; c++) {
       const outChannel = output[c]
 
       for (let s = 0; s < outLen; s++) {
-        const f = scale * frequency[constFreq ? 0 : s]
+        const f = frequency[constFreq ? 0 : s]
         const main = (f * s) / sampleRate + this.phase
+        const indicator = (main % 1) - ((main + pulseWidth) % 1) > 0
 
-        if (shape === 0) {
-          outChannel[s] = getTriangleSample(main)
-        } else if (shape === 1) {
-          outChannel[s] = getSawtoothSample(main)
-        } else if (shape === 2) {
-          outChannel[s] = getPWMSample(main, pulseWidth)
-        } else if (shape === 3) {
-          outChannel[s] = getNoiseSample()
-        }
+        outChannel[s] = indicator ? 1 : -1
       }
     }
 
-    this.phase +=
-      (scale * frequency[frequency.length - 1] * outLen) / sampleRate
+    this.phase += (frequency[frequency.length - 1] * outLen) / sampleRate
     this.phase %= sampleRate
 
     return true
   }
 }
 
-class VCO2Processor extends AudioWorkletProcessor {
-  static get parameterDescriptors() {
-    return [
-      {
-        name: 'shape',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
-      },
-      {
-        name: 'pitch',
-        automationRate: 'k-rate',
-        min: -1,
-        max: 1
-      },
-      {
-        name: 'scale',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
-      },
-      {
-        name: 'frequency',
-        min: Number.EPSILON
-      }
-    ]
-  }
-
-  constructor() {
-    super()
-    this.phase = 0
-  }
-
-  process(inputs, outputs, parameters) {
-    const input = inputs[0]
+class XORProcessor extends AudioWorkletProcessor {
+  process(inputs, outputs) {
+    const inputA = inputs[0]
+    const inputB = inputs[1]
     const output = outputs[0]
     const outLen = output[0].length
 
-    const shape = parameters.shape[0]
-
-    const frequency = parameters.frequency
-    const scale = Math.pow(2, parameters.scale[0])
-    const pitch = Math.pow(2, parameters.pitch[0])
-    const constFreq = frequency.length === 1
-
     for (let c = 0; c < output.length; c++) {
-      const inChannel = input[c]
+      const channelA = inputA[c]
+      const channelB = inputB[c]
       const outChannel = output[c]
 
-      for (let s = 0; s < outChannel.length; s++) {
-        const f = scale * pitch * frequency[constFreq ? 0 : s]
-        const main = (f * s) / sampleRate + this.phase
-
-        if (shape === 0) {
-          outChannel[s] = getSawtoothSample(main)
-        } else if (shape === 1) {
-          outChannel[s] = getPWMSample(main, 0.5)
-        } else if (shape === 2) {
-          outChannel[s] = getPWMSample(main, 0.25)
-        } else if (shape === 3) {
-          outChannel[s] = getRingSample(main, inChannel[s])
-        }
+      for (let s = 0; s < outLen; s++) {
+        const a = channelA[s] > 0
+        const b = channelB[s] > 0
+        outChannel[s] = a !== b ? 1 : -1
       }
     }
-
-    this.phase +=
-      (scale * pitch * frequency[frequency.length - 1] * outLen) / sampleRate
-    this.phase %= sampleRate
 
     return true
   }
@@ -454,8 +388,9 @@ class HADSREnvelopeProcessor extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor('vco1-processor', VCO1Processor)
-registerProcessor('vco2-processor', VCO2Processor)
+registerProcessor('noise-processor', NoiseProcessor)
+registerProcessor('pulse-processor', PulseProcessor)
+registerProcessor('xor-processor', XORProcessor)
 registerProcessor(
   'modulation-generator-processor',
   ModulationGeneratorProcessor

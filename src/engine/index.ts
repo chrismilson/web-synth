@@ -71,7 +71,7 @@ const init = async () => {
   envelopeGenerator2.connect(highpass.cutoff.envelopeGenerator)
   envelopeGenerator2.connect(lowpass.cutoff.envelopeGenerator)
 
-  vco1.connect(vco2) // ring modulation
+  vco1.pulse.connect(vco2.ring)
 
   vco1.connect(vcoMixer.vco1in)
   vco2.connect(vcoMixer.vco2in)

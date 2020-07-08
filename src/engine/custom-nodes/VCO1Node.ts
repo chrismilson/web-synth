@@ -1,12 +1,11 @@
 import { observeStore } from '../../state/store'
 import { Selectors } from './common'
 import { VCO1WaveShape } from '../../state/types/state'
+import PulseOscillatorNode from './PulseOscillatorNode'
 
-export default class VCO1Node extends AudioWorkletNode {
-  shape: AudioParam
-  pulseWidth: AudioParam
-  scale: AudioParam
+export default class VCO1Node extends GainNode {
   frequency: AudioParam
+  pulse: AudioNode
 
   constructor(
     context: AudioContext,
@@ -20,36 +19,57 @@ export default class VCO1Node extends AudioWorkletNode {
       scale: state => state.vco1.scale
     }
   ) {
-    super(context, 'vco1-processor')
+    super(context)
 
-    const shape = this.parameters.get('shape')
-    const pulseWidth = this.parameters.get('pulseWidth')
-    const scale = this.parameters.get('scale')
-    const frequency = this.parameters.get('frequency')
+    const triangle = context.createOscillator()
+    const saw = context.createOscillator()
+    const pulse = new PulseOscillatorNode(context)
+    const noise = new AudioWorkletNode(context, 'noise-processor')
+    const frequency = context.createConstantSource()
+    const scale = context.createGain()
 
-    if (
-      shape === undefined ||
-      pulseWidth === undefined ||
-      scale === undefined ||
-      frequency === undefined
-    ) {
-      throw new Error('Incorrect parameters on custom processor')
-    }
+    const triangleLevel = context.createGain()
+    const sawLevel = context.createGain()
+    const pulseLevel = context.createGain()
+    const noiseLevel = context.createGain()
 
-    this.shape = shape
-    this.pulseWidth = pulseWidth
-    this.scale = scale
-    this.frequency = frequency
+    this.frequency = frequency.offset
+    this.pulse = pulse
 
-    // observe the state for changes in the values
+    frequency.offset.value = 0
+    triangle.type = 'triangle'
+    triangle.frequency.value = 0
+    saw.type = 'sawtooth'
+    saw.frequency.value = 0
+
+    frequency.connect(scale)
+
+    scale.connect(triangle.frequency)
+    scale.connect(saw.frequency)
+    scale.connect(pulse.frequency)
+
+    triangle.connect(triangleLevel).connect(this)
+    saw.connect(sawLevel).connect(this)
+    pulse.connect(pulseLevel).connect(this)
+    noise.connect(noiseLevel).connect(this)
+
+    triangle.start()
+    saw.start()
+    frequency.start()
+
     observeStore(selectors.waveShape, shape => {
-      this.shape.value = shape
+      triangleLevel.gain.value = shape === VCO1WaveShape.TRIANGLE ? 1 : 0
+      sawLevel.gain.value = shape === VCO1WaveShape.SAWTOOTH ? 1 : 0
+      pulseLevel.gain.value = shape === VCO1WaveShape.SQUARE ? 1 : 0
+      noiseLevel.gain.value = shape === VCO1WaveShape.NOISE ? 1 : 0
     })
-    observeStore(selectors.pulseWidth, pulseWidth => {
-      this.pulseWidth.value = pulseWidth
+
+    observeStore(selectors.pulseWidth, pw => {
+      pulse.pulseWidth.value = pw
     })
-    observeStore(selectors.scale, scale => {
-      this.scale.value = scale
+
+    observeStore(selectors.scale, octave => {
+      scale.gain.value = Math.pow(2, octave)
     })
   }
 }

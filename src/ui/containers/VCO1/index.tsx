@@ -15,6 +15,8 @@ const VCO1: React.FC = () => {
         actionCreator={setVCO1PulseWidth}
         title="PW"
         className="pulseWidth"
+        min={0.5}
+        max={0.99}
         labels={[...Array(11)]
           .map((_, i) => i - 5)
           .map(i => (i > 0 ? '+' : '') + i)}
