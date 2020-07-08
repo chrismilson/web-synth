@@ -1,34 +1,67 @@
-const getSawtoothSample = main => (main % 1) * 2 - 1
+class WhiteNoiseProcessor extends AudioWorkletProcessor {
+  process(_inputs, outputs) {
+    const output = outputs[0]
 
-const getTriangleSample = main => Math.abs(getSawtoothSample(main)) * 2 - 1
+    for (let c = 0; c < output.length; c++) {
+      const outChannel = output[c]
 
-const getPWMSample = (main, pw) => ((main % 1) - ((main + pw) % 1) > 0 ? 1 : -1)
+      for (let s = 0; s < outChannel.length; s++) {
+        outChannel[s] = Math.random() * 2 - 1
+      }
+    }
 
-const getRingSample = (main, inSample) => getSawtoothSample(main) * inSample
+    return true
+  }
+}
 
-const getNoiseSample = () => Math.random() * 2 - 1
+class PinkNoiseProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super()
+    this.n = 32
+    this.octaves = { 0: 0 }
+    for (let i = 1; i < this.n; i++) {
+      this.octaves[1 << (i - 1)] = 0
+    }
+    this.sum = 0
+    this.phase = 0
+  }
 
-class VCO1Processor extends AudioWorkletProcessor {
+  getOctave(s) {
+    return s & ~(s - 1) & ((1 << (this.n - 1)) - 1)
+  }
+
+  process(_inputs, outputs) {
+    const output = outputs[0]
+    const outLen = output[0].length
+
+    for (let c = 0; c < output.length; c++) {
+      const outChannel = output[c]
+
+      for (let s = 0; s < outChannel.length; s++) {
+        const octave = this.getOctave(s + this.phase)
+        const rand = Math.random()
+        this.sum += rand - this.octaves[octave]
+        this.octaves[octave] = rand
+        outChannel[s] = this.sum
+      }
+    }
+
+    this.phase += outLen
+    this.phase %= sampleRate
+
+    return true
+  }
+}
+
+class PulseProcessor extends AudioWorkletProcessor {
   static get parameterDescriptors() {
     return [
-      {
-        name: 'shape',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
-      },
       {
         name: 'pulseWidth',
         automationRate: 'k-rate',
         defaultValue: 0.5,
         min: 0.5,
         max: 0.99
-      },
-      {
-        name: 'scale',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
       },
       {
         name: 'frequency',
@@ -46,108 +79,46 @@ class VCO1Processor extends AudioWorkletProcessor {
     const output = outputs[0]
     const outLen = output[0].length
 
-    const shape = parameters.shape[0]
-
     const frequency = parameters.frequency
-    const scale = Math.pow(2, parameters.scale[0] - 1)
-    const pulseWidth = parameters.pulseWidth[0]
     const constFreq = frequency.length === 1
+
+    const pulseWidth = parameters.pulseWidth[0]
 
     for (let c = 0; c < output.length; c++) {
       const outChannel = output[c]
 
       for (let s = 0; s < outLen; s++) {
-        const f = scale * frequency[constFreq ? 0 : s]
+        const f = frequency[constFreq ? 0 : s]
         const main = (f * s) / sampleRate + this.phase
+        const indicator = (main % 1) - ((main + pulseWidth) % 1) > 0
 
-        if (shape === 0) {
-          outChannel[s] = getTriangleSample(main)
-        } else if (shape === 1) {
-          outChannel[s] = getSawtoothSample(main)
-        } else if (shape === 2) {
-          outChannel[s] = getPWMSample(main, pulseWidth)
-        } else if (shape === 3) {
-          outChannel[s] = getNoiseSample()
-        }
+        outChannel[s] = indicator ? 1 : -1
       }
     }
 
-    this.phase +=
-      (scale * frequency[frequency.length - 1] * outLen) / sampleRate
+    this.phase += (frequency[frequency.length - 1] * outLen) / sampleRate
     this.phase %= sampleRate
 
     return true
   }
 }
 
-class VCO2Processor extends AudioWorkletProcessor {
-  static get parameterDescriptors() {
-    return [
-      {
-        name: 'shape',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
-      },
-      {
-        name: 'pitch',
-        automationRate: 'k-rate',
-        min: -1,
-        max: 1
-      },
-      {
-        name: 'scale',
-        automationRate: 'k-rate',
-        min: 0,
-        max: 3
-      },
-      {
-        name: 'frequency',
-        min: Number.EPSILON
-      }
-    ]
-  }
-
-  constructor() {
-    super()
-    this.phase = 0
-  }
-
-  process(inputs, outputs, parameters) {
-    const input = inputs[0]
+class XORProcessor extends AudioWorkletProcessor {
+  process(inputs, outputs) {
+    const inputA = inputs[0]
+    const inputB = inputs[1]
     const output = outputs[0]
     const outLen = output[0].length
 
-    const shape = parameters.shape[0]
-
-    const frequency = parameters.frequency
-    const scale = Math.pow(2, parameters.scale[0])
-    const pitch = Math.pow(2, parameters.pitch[0])
-    const constFreq = frequency.length === 1
-
     for (let c = 0; c < output.length; c++) {
-      const inChannel = input[c]
+      const channelA = inputA[c]
+      const channelB = inputB[c]
       const outChannel = output[c]
 
-      for (let s = 0; s < outChannel.length; s++) {
-        const f = scale * pitch * frequency[constFreq ? 0 : s]
-        const main = (f * s) / sampleRate + this.phase
-
-        if (shape === 0) {
-          outChannel[s] = getSawtoothSample(main)
-        } else if (shape === 1) {
-          outChannel[s] = getPWMSample(main, 0.5)
-        } else if (shape === 2) {
-          outChannel[s] = getPWMSample(main, 0.25)
-        } else if (shape === 3) {
-          outChannel[s] = getRingSample(main, inChannel[s])
-        }
+      for (let s = 0; s < outLen; s++) {
+        outChannel[s] = Math.sign(channelA[s] * channelB[s])
       }
     }
-
-    this.phase +=
-      (scale * pitch * frequency[frequency.length - 1] * outLen) / sampleRate
-    this.phase %= sampleRate
 
     return true
   }
@@ -454,8 +425,10 @@ class HADSREnvelopeProcessor extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor('vco1-processor', VCO1Processor)
-registerProcessor('vco2-processor', VCO2Processor)
+registerProcessor('white-noise-processor', WhiteNoiseProcessor)
+registerProcessor('pink-noise-processor', PinkNoiseProcessor)
+registerProcessor('pulse-processor', PulseProcessor)
+registerProcessor('xor-processor', XORProcessor)
 registerProcessor(
   'modulation-generator-processor',
   ModulationGeneratorProcessor
