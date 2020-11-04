@@ -13,7 +13,7 @@ import envelopeGenerator1 from './envelopeGenerator1'
 import envelopeGenerator2 from './envelopeGenerator2'
 import keyboard from './keyboard'
 
-const volume = getSetter(ActionType.SET_VOLUME, 0)
+const volume = getSetter(ActionType.SET_VOLUME, 0.2)
 
 const portamento = getSetter(ActionType.SET_PORTAMENTO, 0)
 
