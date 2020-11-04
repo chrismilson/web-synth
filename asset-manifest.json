@@ -1,17 +1,21 @@
 {
   "files": {
-    "main.css": "/web-synth/static/css/main.02982333.chunk.css",
-    "main.js": "/web-synth/static/js/main.8885d9df.chunk.js",
-    "main.js.map": "/web-synth/static/js/main.8885d9df.chunk.js.map",
-    "runtime-main.js": "/web-synth/static/js/runtime-main.710eb7be.js",
-    "runtime-main.js.map": "/web-synth/static/js/runtime-main.710eb7be.js.map",
-    "static/js/2.5362aa34.chunk.js": "/web-synth/static/js/2.5362aa34.chunk.js",
-    "static/js/2.5362aa34.chunk.js.map": "/web-synth/static/js/2.5362aa34.chunk.js.map",
+    "main.css": "/web-synth/static/css/main.d6b5bf46.chunk.css",
+    "main.js": "/web-synth/static/js/main.6d6173bd.chunk.js",
+    "main.js.map": "/web-synth/static/js/main.6d6173bd.chunk.js.map",
+    "runtime-main.js": "/web-synth/static/js/runtime-main.a8227208.js",
+    "runtime-main.js.map": "/web-synth/static/js/runtime-main.a8227208.js.map",
+    "static/js/2.3c19402d.chunk.js": "/web-synth/static/js/2.3c19402d.chunk.js",
+    "static/js/2.3c19402d.chunk.js.map": "/web-synth/static/js/2.3c19402d.chunk.js.map",
+    "static/js/3.970275a3.chunk.js": "/web-synth/static/js/3.970275a3.chunk.js",
+    "static/js/3.970275a3.chunk.js.map": "/web-synth/static/js/3.970275a3.chunk.js.map",
+    "static/js/4.f6691933.chunk.js": "/web-synth/static/js/4.f6691933.chunk.js",
+    "static/js/4.f6691933.chunk.js.map": "/web-synth/static/js/4.f6691933.chunk.js.map",
     "index.html": "/web-synth/index.html",
-    "precache-manifest.a5f2e469b8b23f632cc5cb01ef88d6bc.js": "/web-synth/precache-manifest.a5f2e469b8b23f632cc5cb01ef88d6bc.js",
+    "precache-manifest.94d85668a36c0bd86c9695ccdd5d4f91.js": "/web-synth/precache-manifest.94d85668a36c0bd86c9695ccdd5d4f91.js",
     "service-worker.js": "/web-synth/service-worker.js",
-    "static/css/main.02982333.chunk.css.map": "/web-synth/static/css/main.02982333.chunk.css.map",
-    "static/js/2.5362aa34.chunk.js.LICENSE.txt": "/web-synth/static/js/2.5362aa34.chunk.js.LICENSE.txt",
+    "static/css/main.d6b5bf46.chunk.css.map": "/web-synth/static/css/main.d6b5bf46.chunk.css.map",
+    "static/js/2.3c19402d.chunk.js.LICENSE.txt": "/web-synth/static/js/2.3c19402d.chunk.js.LICENSE.txt",
     "static/media/arrows.a1879888.svg": "/web-synth/static/media/arrows.a1879888.svg",
     "static/media/how-to-knob.gif": "/web-synth/static/media/how-to-knob.31fa7cf5.gif",
     "static/media/knob.13f88f3c.svg": "/web-synth/static/media/knob.13f88f3c.svg",
@@ -23,9 +27,9 @@
     "static/media/triangle.e3604168.svg": "/web-synth/static/media/triangle.e3604168.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.710eb7be.js",
-    "static/js/2.5362aa34.chunk.js",
-    "static/css/main.02982333.chunk.css",
-    "static/js/main.8885d9df.chunk.js"
+    "static/js/runtime-main.a8227208.js",
+    "static/js/2.3c19402d.chunk.js",
+    "static/css/main.d6b5bf46.chunk.css",
+    "static/js/main.6d6173bd.chunk.js"
   ]
 }
