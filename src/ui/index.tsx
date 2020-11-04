@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import store from '../state/store'
-import initEngine from '../engine'
+import React, { useState } from 'react'
 import './style.scss'
 
 import VCO1 from './containers/VCO1'
@@ -16,32 +14,14 @@ import ModulationGenerator from './containers/ModulationGenerator'
 import EnvelopeGenerator1 from './containers/EnvelopeGenerator1'
 import EnvelopeGenerator2 from './containers/EnvelopeGenerator2'
 import SynthKeys from './containers/SynthKeys'
+import Initialise from './containers/Initialise/Initialise'
 
 export default function App() {
-  useEffect(() => {
-    let pending = false
-    const unsubscribe = store.subscribe(() => {
-      const volume = store.getState().volume
-
-      if (volume !== 0 && !pending) {
-        pending = true
-        initEngine()
-          .then(() => {
-            console.log('Engine initialisation success.')
-            unsubscribe()
-          })
-          .catch(error => {
-            console.log('Engine initialisation failed.')
-            console.error(error)
-            // try again
-            pending = false
-          })
-      }
-    })
-  }, [])
+  const [initialised, setInitialised] = useState(false)
 
   return (
     <div className="App">
+      {!initialised && <Initialise onInitialise={() => setInitialised(true)} />}
       <div className="keyboardDock">
         <SynthKeys />
       </div>
