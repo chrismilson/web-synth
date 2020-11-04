@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/web-synth/static/css/main.f6baab2c.chunk.css",
-    "main.js": "/web-synth/static/js/main.c50329a2.chunk.js",
-    "main.js.map": "/web-synth/static/js/main.c50329a2.chunk.js.map",
+    "main.css": "/web-synth/static/css/main.02982333.chunk.css",
+    "main.js": "/web-synth/static/js/main.8885d9df.chunk.js",
+    "main.js.map": "/web-synth/static/js/main.8885d9df.chunk.js.map",
     "runtime-main.js": "/web-synth/static/js/runtime-main.710eb7be.js",
     "runtime-main.js.map": "/web-synth/static/js/runtime-main.710eb7be.js.map",
-    "static/js/2.24ba5a74.chunk.js": "/web-synth/static/js/2.24ba5a74.chunk.js",
-    "static/js/2.24ba5a74.chunk.js.map": "/web-synth/static/js/2.24ba5a74.chunk.js.map",
+    "static/js/2.5362aa34.chunk.js": "/web-synth/static/js/2.5362aa34.chunk.js",
+    "static/js/2.5362aa34.chunk.js.map": "/web-synth/static/js/2.5362aa34.chunk.js.map",
     "index.html": "/web-synth/index.html",
-    "precache-manifest.147d5a3311fb859407220d11719f3237.js": "/web-synth/precache-manifest.147d5a3311fb859407220d11719f3237.js",
+    "precache-manifest.a5f2e469b8b23f632cc5cb01ef88d6bc.js": "/web-synth/precache-manifest.a5f2e469b8b23f632cc5cb01ef88d6bc.js",
     "service-worker.js": "/web-synth/service-worker.js",
-    "static/css/main.f6baab2c.chunk.css.map": "/web-synth/static/css/main.f6baab2c.chunk.css.map",
-    "static/js/2.24ba5a74.chunk.js.LICENSE.txt": "/web-synth/static/js/2.24ba5a74.chunk.js.LICENSE.txt",
+    "static/css/main.02982333.chunk.css.map": "/web-synth/static/css/main.02982333.chunk.css.map",
+    "static/js/2.5362aa34.chunk.js.LICENSE.txt": "/web-synth/static/js/2.5362aa34.chunk.js.LICENSE.txt",
     "static/media/arrows.a1879888.svg": "/web-synth/static/media/arrows.a1879888.svg",
+    "static/media/how-to-knob.gif": "/web-synth/static/media/how-to-knob.31fa7cf5.gif",
     "static/media/knob.13f88f3c.svg": "/web-synth/static/media/knob.13f88f3c.svg",
     "static/media/long-pulse.392b898d.svg": "/web-synth/static/media/long-pulse.392b898d.svg",
     "static/media/noise.a25555f6.svg": "/web-synth/static/media/noise.a25555f6.svg",
@@ -23,8 +24,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.710eb7be.js",
-    "static/js/2.24ba5a74.chunk.js",
-    "static/css/main.f6baab2c.chunk.css",
-    "static/js/main.c50329a2.chunk.js"
+    "static/js/2.5362aa34.chunk.js",
+    "static/css/main.02982333.chunk.css",
+    "static/js/main.8885d9df.chunk.js"
   ]
 }

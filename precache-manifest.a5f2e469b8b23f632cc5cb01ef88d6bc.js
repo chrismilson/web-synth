@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d2a0219a38fe5087d7c3a73bb86f4b90",
+    "revision": "c1b74a21e413337963f23a18b057325c",
     "url": "/web-synth/index.html"
   },
   {
-    "revision": "b4116f84d09986301762",
-    "url": "/web-synth/static/css/main.f6baab2c.chunk.css"
+    "revision": "e474b8d33b247acbb19f",
+    "url": "/web-synth/static/css/main.02982333.chunk.css"
   },
   {
-    "revision": "b9a99e40567893ca0b34",
-    "url": "/web-synth/static/js/2.24ba5a74.chunk.js"
+    "revision": "6399c1a4310bce54e278",
+    "url": "/web-synth/static/js/2.5362aa34.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/web-synth/static/js/2.24ba5a74.chunk.js.LICENSE.txt"
+    "url": "/web-synth/static/js/2.5362aa34.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b4116f84d09986301762",
-    "url": "/web-synth/static/js/main.c50329a2.chunk.js"
+    "revision": "e474b8d33b247acbb19f",
+    "url": "/web-synth/static/js/main.8885d9df.chunk.js"
   },
   {
     "revision": "e6898e36b3526c4f97a6",
@@ -26,6 +26,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "a1879888c5fbcb770d0c354ed96a909d",
     "url": "/web-synth/static/media/arrows.a1879888.svg"
+  },
+  {
+    "revision": "31fa7cf564ff7eb046e16e69e08898d4",
+    "url": "/web-synth/static/media/how-to-knob.31fa7cf5.gif"
   },
   {
     "revision": "13f88f3c421936f2615ffc5b523741b8",
