@@ -25,26 +25,6 @@ MS-20](https://en.wikipedia.org/wiki/Korg_MS-20).
 
 ## Usage
 
-The Web Audio API has a feature where an audio context (somthing that makes
-sound) cannot make sound unless activated by a user gesture. So on loading the
-synthesiser, the volume will always be 0. Raising the volume will activate a red
-LED on the volume knob, so you know you're good to go.
-
-<table>
-  <tr>
-    <td>
-      <img src="readme-assets/volume-default.png" alt="default volume">
-    </td>
-    <td>
-      <img src="readme-assets/volume-up.png" alt="volume up">
-    </td>
-  </tr>
-  <tr align="center">
-    <td>Nothing will happen.</td>
-    <td>Good to go!</td>
-  </tr>
-</table>
-
 ### Modules
 
 There are many modules and many knobs so it can be a little bit overwhelming
