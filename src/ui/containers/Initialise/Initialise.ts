@@ -1,5 +1,4 @@
 import { connect, MapDispatchToProps } from 'react-redux'
-import initEngine from '../../../engine'
 import Landing from '../../components/Landing/Landing'
 
 const mapDispatchToProps: MapDispatchToProps<
@@ -12,9 +11,12 @@ const mapDispatchToProps: MapDispatchToProps<
 > = (dispatch, { onInitialise }) => ({
   handleStart: () => {
     // Initialise the engine then bubble up.
-    initEngine().then(() => {
-      onInitialise()
-    })
+    import('../../../engine')
+      .then(m => m.default)
+      .then(initEngine => initEngine())
+      .then(() => {
+        onInitialise()
+      })
   }
 })
 
