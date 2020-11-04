@@ -22,21 +22,25 @@ export default function App() {
   return (
     <div className="App">
       {!initialised && <Initialise onInitialise={() => setInitialised(true)} />}
-      <div className="keyboardDock">
-        <SynthKeys />
+      <div className="Synth">
+        <div className="Knobs">
+          <VCO1 />
+          <VCO2 />
+          <VCOMixer />
+          <Volume />
+          <Highpass />
+          <Lowpass />
+          <Portamento />
+          <MasterTune />
+          <FrequencyModulator />
+          <ModulationGenerator />
+          <EnvelopeGenerator1 />
+          <EnvelopeGenerator2 />
+        </div>
+        <div className="keyboardDock">
+          <SynthKeys />
+        </div>
       </div>
-      <VCO1 />
-      <VCO2 />
-      <VCOMixer />
-      <Volume />
-      <Highpass />
-      <Lowpass />
-      <Portamento />
-      <MasterTune />
-      <FrequencyModulator />
-      <ModulationGenerator />
-      <EnvelopeGenerator1 />
-      <EnvelopeGenerator2 />
     </div>
   )
 }
